@@ -113,16 +113,16 @@ UserSchema.methods.matchPasswords = async function (password) {
 UserSchema.methods.getSignedJwtToken = function () {
   return jwt.sign(
     {
-      user_id: this._id,
-      username: this.fname + this.lname,
-      role: this.role,
-      sub_role: this.sub_role,
-      is_two_factor_enabled: this.is_two_factor_enabled,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60, //1hour
+      data: {
+        user_id: this._id,
+        username: this.fname + this.lname,
+        role: this.role,
+        sub_role: this.sub_role,
+        is_two_factor_enabled: this.is_two_factor_enabled,
+      },
     },
-    AUTH_SECRET,
-    {
-      expiresIn: AUTH_EXPIRE,
-    }
+    AUTH_SECRET
   );
 };
 

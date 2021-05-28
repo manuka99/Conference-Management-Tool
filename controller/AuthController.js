@@ -7,6 +7,7 @@ const {
   ValidateRegisterCredentials,
   ValidateResetCredentials,
 } = require("../util/AuthValidator");
+const JWTToken = require("../models/JWTToken");
 
 // to register user
 exports.Registration = async (req, res) => {
@@ -79,6 +80,22 @@ exports.Login = async (req, res) => {
     message: "Success user login",
     token: `Bearer ${user.getSignedJwtToken()}`,
   });
+};
+
+exports.Logout = async (req, res) => {
+  try {
+    var token = String(req.header("authorization")).slice(7);
+    const jwtToken = await JWTToken.findOne({ token });
+    if (!jwtToken) jwtToken = new JWTToken({ token });
+
+    // revoke token
+    jwtToken.isValid = false;
+    jwtToken.save();
+
+    return res.status(200).json({ message: "Token revoked successfully" });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.RecoverPassword = async (req, res) => {
