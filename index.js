@@ -9,8 +9,8 @@ const { Authenticate } = require("./middlewares/Authenticate");
 // init the app
 const app = express();
 
-app.use(body_parser.json());
 app.use(cors());
+app.use(body_parser.json());
 app.use(useragent.express());
 
 // middlewares

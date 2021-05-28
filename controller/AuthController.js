@@ -25,7 +25,7 @@ exports.Registration = async (req, res) => {
       sub_role,
     } = req.body;
 
-    const user = await User.create({
+    const newUser = await User.create({
       fname,
       lname,
       date_Of_birth,
@@ -36,11 +36,7 @@ exports.Registration = async (req, res) => {
       sub_role,
     });
 
-    try {
-      await user.save();
-    } catch (error) {
-      return res.status(422).json(error);
-    }
+    const user = await newUser.save();
 
     return res.status(200).json({
       user,
@@ -48,7 +44,7 @@ exports.Registration = async (req, res) => {
       token: `Bearer ${user.getSignedJwtToken()}`,
     });
   } catch (error) {
-    console.log(error);
+    return res.status(422).json(error);
   }
 };
 
@@ -120,7 +116,7 @@ exports.RecoverPassword = async (req, res) => {
   PasswordRecoverySMS(user, recovery_token);
 
   return res
-    .status(201)
+    .status(200)
     .json({ message: "Password reset link has been sent succesfully" });
 };
 
@@ -154,7 +150,7 @@ exports.ResetPassword = async (req, res) => {
   user.password_recovery_expire = undefined;
   await user.save();
 
-  res.status(201).json({
+  res.status(200).json({
     user,
     message: "Password was reset successfully!",
     token: user.getSignedJwtToken(),
