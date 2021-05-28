@@ -1,26 +1,18 @@
 const User = require("../models/Users");
-const { SECRET } = require("../config/index");
+const { AUTH_SECRET } = require("../config/index");
 const { Strategy, ExtractJwt } = require("passport-jwt");
-const { serializeUser } = require("../util/Auth");
 
 const opts = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: SECRET,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: AUTH_SECRET,
 };
 
 module.exports = (passport) => {
-    passport.use(
-        new Strategy(opts, async(payload, done) => {
-            await User.findById(payload.user_id)
-                .then((user) => {
-                    if (user) {
-                        return done(null, serializeUser(user));
-                    }
-                    return done(null, false);
-                })
-                .catch((error) => {
-                    return done(null, false);
-                });
-        })
-    );
+  passport.use(
+    new Strategy(opts, async (payload, done) => {
+      await User.findById(payload.user_id)
+        .then((user) => (user ? done(null, user) : done(null, false)))
+        .catch((error) => done(null, false));
+    })
+  );
 };
