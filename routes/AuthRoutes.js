@@ -12,6 +12,6 @@ router.post("/login", AuthController.Login);
 router.post("/recover-password", AuthController.RecoverPassword);
 
 //validate reset token and reset password
-router.put("/password-reset/:token", AuthController.ResetPassword);
+router.post("/password-reset/:token", AuthController.ResetPassword);
 
 module.exports = router;

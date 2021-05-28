@@ -1,9 +1,9 @@
 const { sendSms } = require("./SmsService");
 
 // send recovery password SMS
-exports.PasswordRecoverySMS = async (user) => {
+exports.PasswordRecoverySMS = async (user, recovery_token) => {
   var message = `   
-     Click this link to reset password. http://localhost:3000/reset-password/${user.password_recovery_token} `;
+     Click this link to reset password. http://localhost:3000/password-reset?token=${recovery_token}&email=${user.email}`;
 
   var smsOptions = {
     to: user.phone,

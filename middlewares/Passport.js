@@ -1,4 +1,4 @@
-const User = require("../models/Users");
+const User = require("../models/User");
 const { AUTH_SECRET } = require("../config/index");
 const { Strategy, ExtractJwt } = require("passport-jwt");
 

@@ -1,12 +1,18 @@
-const Users = require("../models/Users");
+const User = require("../models/User");
 const { PasswordRecoveryEmail } = require("../services/MailServiceImpl");
 const { PasswordRecoverySMS } = require("../services/SmsServiceImpl");
-const { ValidateLoginCredentials } = require("../util/AuthValidator");
+const bcrypt = require("bcrypt");
+const {
+  ValidateLoginCredentials,
+  ValidateRegisterCredentials,
+  ValidateResetCredentials,
+} = require("../util/AuthValidator");
 
 // to register user
 exports.Registration = async (req, res) => {
   try {
-    // destructure
+    if (!(await ValidateRegisterCredentials(req, res))) return;
+
     const {
       fname,
       lname,
@@ -18,7 +24,7 @@ exports.Registration = async (req, res) => {
       sub_role,
     } = req.body;
 
-    const user = await Users.create({
+    const user = await User.create({
       fname,
       lname,
       date_Of_birth,
@@ -29,7 +35,11 @@ exports.Registration = async (req, res) => {
       sub_role,
     });
 
-    await user.save();
+    try {
+      await user.save();
+    } catch (error) {
+      return res.status(422).json(error);
+    }
 
     return res.status(200).json({
       user,
@@ -37,17 +47,20 @@ exports.Registration = async (req, res) => {
       token: `Bearer ${user.getSignedJwtToken()}`,
     });
   } catch (error) {
-    return res.status(422).json(error);
+    console.log(error);
   }
 };
 
 // to login
 exports.Login = async (req, res) => {
   // validate req
-  const { email, password } = ValidateLoginCredentials(req, res);
+  if (!(await ValidateLoginCredentials(req, res))) return;
+
+  const { email, password } = req.body;
 
   // match email
   const user = await User.findOne({ email }).select("+password");
+
   if (!user)
     return res.status(400).json({
       message: "No account associated with the email provided.",
@@ -78,28 +91,29 @@ exports.RecoverPassword = async (req, res) => {
       .json({ message: "No account associated with the email provided." });
 
   //gnerate password recovery token
-  const resetToken = user.getPasswordRecoveryToken();
+  const recovery_token = user.getPasswordRecoveryToken();
 
   //save password recovery token
   await user.save();
 
   //send password recovery mail
-  PasswordRecoveryEmail(user);
+  PasswordRecoveryEmail(user, recovery_token);
 
   //send password recovery SMS
-  PasswordRecoverySMS(user);
+  PasswordRecoverySMS(user, recovery_token);
+
+  return res
+    .status(201)
+    .json({ message: "Password reset link has been sent succesfully" });
 };
 
 exports.ResetPassword = async (req, res) => {
-  // compare the token in url and hashed version
-  const resetToken = crypto
-    .createHash("sha256")
-    .update(req.params.token)
-    .digest("hex");
+  // validate req
+  if (!(await ValidateResetCredentials(req, res))) return;
 
   const user = await User.findOne({
-    password_recovery_token,
-    password_recovery_expire: { $gt: Date.now() },
+    email: req.body.email,
+    password_recovery_expire: { $gte: Date.now() },
   });
 
   if (!user)
@@ -107,9 +121,20 @@ exports.ResetPassword = async (req, res) => {
       message: "Password recovery link has been expired or not available.",
     });
 
+  // compare the token in url and hashed version in the DB
+  const isMatch = await bcrypt.compare(
+    req.params.token,
+    user.password_recovery_token
+  );
+
+  if (!isMatch)
+    return res.status(400).json({
+      message: "Password recovery link has been expired or not available.",
+    });
+
   user.password = req.body.password;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpire = undefined;
+  user.password_recovery_token = undefined;
+  user.password_recovery_expire = undefined;
   await user.save();
 
   res.status(201).json({

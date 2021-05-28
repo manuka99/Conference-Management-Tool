@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { SECRET } = require("../config");
+const { AUTH_SECRET, AUTH_EXPIRE } = require("../config");
 
 const UserSchema = new Schema(
   {
@@ -21,7 +21,7 @@ const UserSchema = new Schema(
     },
 
     date_Of_birth: {
-      type: Date,
+      type: String,
       required: [true, "Date of birth must not be empty."],
       minlength: [6, "Date of birth must have at least 6 characters."],
       maxlength: [15, "Date of birth must not have more than 15 characters."],
@@ -60,7 +60,6 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "Password must not be empty."],
       minlength: [8, "Password must have at least 8 characters."],
-      maxlength: [40, "Password must not have more than 40 characters."],
       select: false, // password will not be retrived unless specified
     },
 
@@ -87,7 +86,7 @@ const UserSchema = new Schema(
 
     sub_role: {
       type: String,
-      default: "researcher",
+      required: false,
       enum: ["researcher", "presenter", "attendee", "inovator"],
     },
 
@@ -128,13 +127,10 @@ UserSchema.methods.getSignedJwtToken = function () {
 };
 
 UserSchema.methods.getPasswordRecoveryToken = function () {
-  const recovery_token = crypto.randomBytes(20).toString("hex");
-  this.password_recovery_token = crypto
-    .createHash("sha256")
-    .update(recovery_token)
-    .digest("hex");
+  const recovery_token = crypto.randomBytes(32).toString("hex");
+  this.password_recovery_token = bcrypt.hashSync(recovery_token, 10);
   this.password_recovery_expire = Date.now() + 10 * (60 * 1000);
   return recovery_token;
 };
 
-module.exports = model("users", UserSchema);
+module.exports = model("user", UserSchema);
