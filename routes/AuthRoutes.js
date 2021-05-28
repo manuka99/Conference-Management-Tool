@@ -15,7 +15,7 @@ router.post("/logout", AuthUser, AuthController.Logout);
 router.post("/recover-password", AuthController.RecoverPassword);
 
 //validate reset token and reset password
-router.post("/password-reset/:token", AuthController.ResetPassword);
+router.post("/reset-password", AuthController.ResetPassword);
 
 router.get("/user", (req, res) => {
   return res.status(200).json({ user: req.user });

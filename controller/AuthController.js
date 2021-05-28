@@ -71,6 +71,7 @@ exports.Login = async (req, res) => {
     });
 
   // return jwt token
+  user.password = null;
   return res.status(200).json({
     user,
     message: "Success user login",
@@ -136,7 +137,7 @@ exports.ResetPassword = async (req, res) => {
 
   // compare the token in url and hashed version in the DB
   const isMatch = await bcrypt.compare(
-    req.params.token,
+    req.body.token,
     user.password_recovery_token
   );
 
@@ -148,11 +149,18 @@ exports.ResetPassword = async (req, res) => {
   user.password = req.body.password;
   user.password_recovery_token = undefined;
   user.password_recovery_expire = undefined;
-  await user.save();
+
+  try {
+    await user.save();
+  } catch (error) {
+    return res.status(422).json(error);
+  }
+
+  user.password = null;
 
   res.status(200).json({
     user,
     message: "Password was reset successfully!",
-    token: user.getSignedJwtToken(),
+    token: `Bearer ${user.getSignedJwtToken()}`,
   });
 };
