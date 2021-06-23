@@ -1,6 +1,6 @@
 var jwt = require("jsonwebtoken");
-const User = require("../models/User");
-const JWTToken = require("../models/JWTToken");
+const User = require("../Schemas/User");
+const JWTToken = require("../Schemas/JWTToken");
 const { AUTH_SECRET } = require("../config/index");
 var getIP = require("ipware")().get_ip;
 

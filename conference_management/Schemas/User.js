@@ -6,32 +6,18 @@ const { AUTH_SECRET, AUTH_EXPIRE } = require("../config");
 
 const UserSchema = new Schema(
   {
-    fname: {
+    firstName: {
       type: String,
       required: [true, "First name must not be empty"],
       minlength: [3, "First name must have at least 3 characters."],
       maxlength: [12, "First name must not have more than 12 characters."],
     },
 
-    lname: {
+    lastName: {
       type: String,
       required: [true, "Last name must not be empty."],
       minlength: [3, "Last name must have at least 3 characters."],
       maxlength: [12, "Last name must not have more than 12 characters."],
-    },
-
-    date_Of_birth: {
-      type: String,
-      required: [true, "Date of birth must not be empty."],
-      minlength: [6, "Date of birth must have at least 6 characters."],
-      maxlength: [15, "Date of birth must not have more than 15 characters."],
-    },
-
-    address: {
-      type: String,
-      required: [true, "address must not be empty."],
-      minlength: [8, "address must have at least 8 characters."],
-      maxlength: [65, "address must not have more than 60 characters."],
     },
 
     phone: {
@@ -80,14 +66,8 @@ const UserSchema = new Schema(
 
     role: {
       type: String,
-      default: "user",
-      enum: ["user", "admin", "editor", "reviewer"],
-    },
-
-    sub_role: {
-      type: String,
-      required: false,
-      enum: ["researcher", "presenter", "attendee", "inovator"],
+      default: "USER",
+      enum: ["USER", "ADMIN", "EDITOR", "REVIEWER"],
     },
 
     email_verify_token: String,
@@ -106,7 +86,7 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-UserSchema.methods.matchPasswords = async function (password) {
+UserSchema.methods.matchPasswords = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
@@ -130,7 +110,9 @@ UserSchema.methods.getPasswordRecoveryToken = function () {
   const recovery_token = crypto.randomBytes(32).toString("hex");
   this.password_recovery_token = bcrypt.hashSync(recovery_token, 10);
   this.password_recovery_expire = Date.now() + 10 * (60 * 1000);
+  this.save();
   return recovery_token;
 };
 
-module.exports = model("user", UserSchema);
+const User = model("user", UserSchema);
+module.exports = User;

@@ -1,24 +1,15 @@
-const AuthController = require("../controller/AuthController");
+const AuthEndpoint = require("../endpoints/AuthEndpoint");
 const { AuthUser } = require("../middlewares/AuthUser");
-const router = require("express").Router();
 
-// user registration
-router.post("/register", AuthController.Registration);
+exports.AuthRoutes = (app) => {
+  /* Public Routes */
 
-// user login
-router.post("/login", AuthController.Login);
+  app.post("/api/public/register", AuthEndpoint.Registration);
+  app.post("/api/public/login", AuthEndpoint.Login);
+  app.post("/api/public/recover-password", AuthEndpoint.RecoverPassword);
+  app.post("/api/public/reset-password", AuthEndpoint.ResetPassword);
 
-// user login
-router.post("/logout", AuthUser, AuthController.Logout);
+  /* Authenticated Routes */
 
-// recover password
-router.post("/recover-password", AuthController.RecoverPassword);
-
-//validate reset token and reset password
-router.post("/reset-password", AuthController.ResetPassword);
-
-router.get("/user", (req, res) => {
-  return res.status(200).json({ user: req.user });
-});
-
-module.exports = router;
+  app.post("/api/auth/logout", AuthUser, AuthEndpoint.Logout);
+};

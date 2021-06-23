@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../Schemas/User");
 
 exports.ValidateRegisterCredentials = async (req, res) => {
   const subRoles = ["researcher", "presenter", "attendee", "inovator"];

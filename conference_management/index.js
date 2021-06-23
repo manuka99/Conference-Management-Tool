@@ -5,6 +5,7 @@ const { connect } = require("mongoose");
 const { DB, PORT } = require("./config");
 var useragent = require("express-useragent");
 const { Authenticate } = require("./middlewares/Authenticate");
+const { AppRoutes } = require("./routes");
 
 // init the app
 const app = express();
@@ -18,7 +19,7 @@ app.use(useragent.express());
 app.all("*", Authenticate);
 
 // Auth routes
-app.use("/api/auth", require("./routes/AuthRoutes"));
+AppRoutes(app);
 
 const startApp = async () => {
   try {

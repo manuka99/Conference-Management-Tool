@@ -18,6 +18,7 @@
     "crypto": "^1.0.1",
     "device-detector-js": "^2.2.9",
     "dotenv": "^8.2.0",
+    "enum": "^3.0.4",
     "express": "^4.17.1",
     "express-useragent": "^1.0.15",
     "ipware": "^2.0.0",

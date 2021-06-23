@@ -19,4 +19,5 @@ const TokenSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = model("token", TokenSchema);
+const JWTToken = model("token", TokenSchema);
+module.exports = JWTToken;
