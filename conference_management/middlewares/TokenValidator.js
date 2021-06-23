@@ -34,7 +34,7 @@ exports.TokenValidator = async (req, res, next) => {
       getIP(req).clientIp
     );
   } catch (error) {
-    consola.error(`Authentication Middleware: ${error.message}`);
+    consola.error(`TokenValidator Middleware: ${error.message}`);
   } finally {
     next();
   }

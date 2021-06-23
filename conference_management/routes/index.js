@@ -10,5 +10,5 @@ exports.AppRoutes = (app) => {
   MemberRoutes(app);
 
   // Invalid Routes
-  app.use("/404", (req, res) => sendError(res, "Resource not found!"));
+  app.use("*", (req, res) => sendError(res, "Resource not found!"));
 };
