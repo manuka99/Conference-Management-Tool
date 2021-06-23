@@ -4,21 +4,21 @@ const express = require("express");
 const { connect } = require("mongoose");
 const { DB, PORT } = require("./config");
 var useragent = require("express-useragent");
-const { Authenticate } = require("./middlewares/Authenticate");
 const { AppRoutes } = require("./routes");
+const { AppMiddlewares } = require("./middlewares");
+const { HandleError } = require("./middlewares/HandleError");
 
 // init the app
 const app = express();
 
 app.use(cors());
-app.use(body_parser.json());
+app.use(express.json());
 app.use(useragent.express());
 
-// middlewares
-// authenticate
-app.all("*", Authenticate);
+/* MIDDLEWARES */
+AppMiddlewares(app);
 
-// Auth routes
+/* ROUTES */
 AppRoutes(app);
 
 const startApp = async () => {
@@ -42,3 +42,6 @@ const startApp = async () => {
 
 // start the app
 startApp();
+
+/* ERRORS */
+app.use(HandleError);

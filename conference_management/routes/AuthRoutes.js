@@ -1,5 +1,4 @@
 const AuthEndpoint = require("../endpoints/AuthEndpoint");
-const { AuthUser } = require("../middlewares/AuthUser");
 
 exports.AuthRoutes = (app) => {
   /* Public Routes */
@@ -10,6 +9,8 @@ exports.AuthRoutes = (app) => {
   app.post("/api/public/reset-password", AuthEndpoint.ResetPassword);
 
   /* Authenticated Routes */
+  app.post("/api/auth/logout", AuthEndpoint.Logout);
 
-  app.post("/api/auth/logout", AuthUser, AuthEndpoint.Logout);
+  // test
+  app.get("/api/auth/", (req, res) => res.status(200).json({ user: req.user }));
 };

@@ -66,14 +66,14 @@ const UserSchema = new Schema(
 
     role: {
       type: String,
-      default: "USER",
-      enum: ["USER", "ADMIN", "EDITOR", "REVIEWER"],
+      default: "MEMBER",
+      enum: ["MEMBER", "ADMIN", "EDITOR", "REVIEWER"],
     },
 
-    email_verify_token: String,
+    email_verify_token: { type: String, select: false },
     email_verified_at: Date,
-    password_recovery_token: String,
-    password_recovery_expire: Date,
+    password_recovery_token: { type: String, select: false },
+    password_recovery_expire: { type: String, select: false },
   },
 
   { timestamps: true }
@@ -88,6 +88,10 @@ UserSchema.pre("save", async function (next) {
 
 UserSchema.methods.matchPasswords = function (password) {
   return bcrypt.compareSync(password, this.password);
+};
+
+UserSchema.methods.matchPasswordRecoveryTokens = function (token) {
+  return bcrypt.compareSync(token, this.password_recovery_token);
 };
 
 UserSchema.methods.getSignedJwtToken = function () {

@@ -1,17 +1,16 @@
 const { PasswordRecoveryEmail } = require("../services/MailServiceImpl");
 const { PasswordRecoverySMS } = require("../services/SmsServiceImpl");
-const bcrypt = require("bcrypt");
 const { sendError, sendSuccess } = require("../common/util");
 const UserEnum = require("../models/UserModel");
 const MemberEndpoint = require("./MemberEndpoint");
-const UserDao = require("../dau/UserDao");
-const JWTTokenDau = require("../dau/JWTTokenDau");
+const UserDao = require("../Dao/UserDao");
+const JWTTokenDao = require("../Dao/JWTTokenDao");
 
 // to register user
 exports.Registration = async (req, res, next) => {
   const { role } = req.body;
   switch (role) {
-    case UserEnum.MEMBER:
+    case UserEnum.MEMBER.value:
       MemberEndpoint.MemberRegistration(req, res, next);
       break;
 
@@ -42,6 +41,7 @@ exports.Login = async (req, res, next) => {
 
       // return jwt token
       user.password = null;
+
       return sendSuccess(res, {
         user,
         message: "Success user login",
@@ -53,12 +53,12 @@ exports.Login = async (req, res, next) => {
 
 exports.Logout = async (req, res, next) => {
   var token = String(req.header("authorization")).slice(7);
-  await JWTTokenDau.invalidateToken(token)
+  await JWTTokenDao.invalidateToken(token)
     .then((data) => sendSuccess(res, { message: "Token revoked successfully" }))
     .catch(next);
 };
 
-exports.RecoverPassword = async (req, res) => {
+exports.RecoverPassword = async (req, res, next) => {
   const { email } = req.body;
   UserDao.findUserByEmail(email)
     .then((user) => {
@@ -83,17 +83,17 @@ exports.RecoverPassword = async (req, res) => {
     .catch(next);
 };
 
-exports.ResetPassword = async (req, res) => {
-  const { email, token, password } = req.body;
+exports.ResetPassword = async (req, res, next) => {
+  const { email, token, password, logOutAllDevices } = req.body;
   UserDao.findUserByEmailWithPwdResetExpire(email)
-    .then((user) => {
+    .then(async (user) => {
       if (!user)
         return sendError(res, {
           message: "Password recovery link has been expired or not available.",
         });
 
       // compare the token in url and hashed version in the DB
-      const isMatch = bcrypt.compareSync(token, user.password_recovery_token);
+      const isMatch = user.matchPasswordRecoveryTokens(token);
 
       if (!isMatch)
         return sendError(res, {
@@ -103,6 +103,8 @@ exports.ResetPassword = async (req, res) => {
       // update password
       UserDao.updatePassword(user._id, password)
         .then((updatedUser) => {
+          // revoke other logged in tokens if user requested
+          if (logOutAllDevices) JWTTokenDao.invalidateTokensOfUser(user._id);
           return sendSuccess(res, {
             updatedUser,
             message: "Password was reset successfully!",
