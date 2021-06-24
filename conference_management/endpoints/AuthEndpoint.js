@@ -45,7 +45,7 @@ exports.Login = async (req, res, next) => {
       return sendSuccess(res, {
         user,
         message: "Success user login",
-        token: `Bearer ${user.getSignedJwtToken()}`,
+        token: user.getSignedJwtToken(),
       });
     })
     .catch(next);
@@ -84,7 +84,14 @@ exports.RecoverPassword = async (req, res, next) => {
 };
 
 exports.ResetPassword = async (req, res, next) => {
-  const { email, token, password, logOutAllDevices } = req.body;
+  const { email, token, password, repeat_password, logOutAllDevices } =
+    req.body;
+
+  if (repeat_password !== password)
+    return sendError(res, {
+      message: "Passwords do not match.",
+    });
+
   UserDao.findUserByEmailWithPwdResetExpire(email)
     .then(async (user) => {
       if (!user)
@@ -108,10 +115,32 @@ exports.ResetPassword = async (req, res, next) => {
           return sendSuccess(res, {
             updatedUser,
             message: "Password was reset successfully!",
-            token: `Bearer ${updatedUser.getSignedJwtToken()}`,
+            token: updatedUser.getSignedJwtToken(),
           });
         })
         .catch(next);
+    })
+    .catch(next);
+};
+
+exports.UpdatePassword = async (req, res, next) => {
+  const { password, repeat_password, logOutAllDevices } = req.body;
+  const { user } = req;
+
+  if (repeat_password !== password)
+    return sendError(res, {
+      message: "Passwords do not match.",
+    });
+
+  // update password
+  UserDao.updatePassword(user._id, password)
+    .then((updatedUser) => {
+      // revoke other logged in tokens if user requested
+      if (logOutAllDevices) JWTTokenDao.invalidateTokensOfUser(user._id);
+      return sendSuccess(res, {
+        message: "Password was updated successfully!",
+        token: updatedUser.getSignedJwtToken(),
+      });
     })
     .catch(next);
 };

@@ -1,12 +1,17 @@
-const User = require("../Schemas/User");
+const Member = require("../Schemas/Member");
 
 exports.createNewMember = async (data) => {
-  var user = await User.create(data);
-  user.password = null;
-  return user;
+  var member = await Member.create(data);
+  member.password = null;
+  return member;
 };
 
-exports.updateNewMember = async (id, data) => {
-  var user = await User.findByIdAndUpdate(id, data);
-  return user;
+exports.findMember = async (id) => {
+  var member = await Member.findById(id);
+  return member;
+};
+
+exports.updateMember = async (id, data) => {
+  var member = await Member.findByIdAndUpdate(id, data);
+  return member;
 };

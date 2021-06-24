@@ -6,10 +6,18 @@ exports.findByToken = async (token) => {
 };
 
 exports.invalidateToken = async (token) => {
-  const jwtToken = await JWTToken.findOne({ token });
-  if (!jwtToken) jwtToken = new JWTToken({ token });
-  jwtToken.isValid = false;
-  await jwtToken.save();
+  const jwtTokens = await JWTToken.updateMany(
+    { token },
+    { $set: { isValid: false } }
+  );
+  return jwtTokens;
+};
+
+exports.invalidateTokenById = async (_id) => {
+  const jwtToken = await JWTToken.updateOne(
+    { _id },
+    { $set: { isValid: false } }
+  );
   return jwtToken;
 };
 
@@ -44,4 +52,19 @@ exports.saveTokenWithUseragent = async (token, user, useragent, ip) => {
   jwtToken.last_activity = Math.floor(Date.now() / 1000);
   jwtToken.isValid = true;
   await jwtToken.save();
+};
+
+exports.findAllByUserID = async (user_id) => {
+  const tokens = await JWTToken.find({ user_id });
+  return tokens;
+};
+
+exports.findById = async (id) => {
+  const token = await JWTToken.findById(id);
+  return token;
+};
+
+exports.deleteById = async (id) => {
+  const token = await JWTToken.findByIdAndDelete(id);
+  return token;
 };

@@ -21,7 +21,8 @@ exports.TokenValidator = async (req, res, next) => {
     const jwtToken = await JWTTokenDao.findByToken(token);
 
     // check if jwtToken is revoked
-    if (jwtToken && !jwtToken.isValid) return next();
+    if (jwtToken && !jwtToken.isValid)
+      throw new Error("Using a revoked authorization token");
 
     // user is authenicated, used by other middlewares to verify role etc
     req.user = user;

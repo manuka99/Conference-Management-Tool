@@ -1,9 +1,13 @@
-const { Schema, model } = require("mongoose");
+const {
+  Schema,
+  model,
+  Types: { ObjectId },
+} = require("mongoose");
 
 const TokenSchema = new Schema(
   {
-    user_id: String,
-    token: String,
+    user_id: { type: ObjectId, ref: "users" },
+    token: { type: String, select: false },
     ip_address: String,
     user_agent: String,
     deviceType: String,
