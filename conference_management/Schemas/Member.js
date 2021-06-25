@@ -3,7 +3,7 @@ const User = require("./User");
 const { Schema } = require("mongoose");
 
 const MemberSchema = new Schema({
-  date_Of_birth: {
+  date_of_birth: {
     type: String,
     required: [false, "Date of birth must not be empty."],
     minlength: [6, "Date of birth must have at least 6 characters."],
@@ -12,7 +12,7 @@ const MemberSchema = new Schema({
 
   address: {
     type: String,
-    required: [false, "address must not be empty."],
+    required: [true, "address must not be empty."],
     minlength: [8, "address must have at least 8 characters."],
     maxlength: [65, "address must not have more than 60 characters."],
   },

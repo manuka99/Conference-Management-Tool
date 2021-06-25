@@ -23,13 +23,6 @@ const UserSchema = new Schema(
     phone: {
       type: String,
       required: [true, "Contact number must not be empty."],
-      validate: {
-        validator: function (v) {
-          return /\d{3}-\d{4}-\d{3}/.test(v);
-        },
-        message: (props) =>
-          `${props.value} is not a valid phone number!. Ex: 077-1234-567`,
-      },
     },
 
     email: {

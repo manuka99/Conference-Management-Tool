@@ -6,6 +6,8 @@ const MemberEndpoint = require("./MemberEndpoint");
 const UserDao = require("../Dao/UserDao");
 const JWTTokenDao = require("../Dao/JWTTokenDao");
 
+/* VALIDATION RULES */
+
 // to register user
 exports.Registration = async (req, res, next) => {
   const { role } = req.body;
