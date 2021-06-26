@@ -1,24 +1,32 @@
 const { PasswordRecoveryEmail } = require("../services/MailServiceImpl");
 const { PasswordRecoverySMS } = require("../services/SmsServiceImpl");
 const { sendError, sendSuccess } = require("../common/util");
-const UserEnum = require("../models/UserModel");
+const { UserEnum } = require("../models/UserModel");
 const MemberEndpoint = require("./MemberEndpoint");
 const UserDao = require("../Dao/UserDao");
 const JWTTokenDao = require("../Dao/JWTTokenDao");
+const ValidationError = require("../Common/ValidationError");
 
 /* VALIDATION RULES */
 
 // to register user
-exports.Registration = async (req, res, next) => {
+exports.Registration = (req, res, next) => {
   const { role } = req.body;
   switch (role) {
+    case UserEnum.ADMIN.value:
+      MemberEndpoint.MemberRegistration(req, res, next);
+      break;
+    case UserEnum.EDITOR.value:
+      MemberEndpoint.MemberRegistration(req, res, next);
+      break;
+    case UserEnum.REVIEWER.value:
+      MemberEndpoint.MemberRegistration(req, res, next);
+      break;
     case UserEnum.MEMBER.value:
       MemberEndpoint.MemberRegistration(req, res, next);
       break;
-
     default:
-      sendError(res, { message: "Invalid Role assigned " });
-      break;
+      throw new ValidationError("Invalid Role assigned!");
   }
 };
 
@@ -31,14 +39,14 @@ exports.Login = async (req, res, next) => {
     .then((user) => {
       if (!user)
         return sendError(res, {
-          message: "No account associated with the email provided.",
+          msg: "No account associated with the email provided.",
         });
 
       // match password
       const isMatch = user.matchPasswords(password);
       if (!isMatch)
         return sendError(res, {
-          message: "Password is incorrect",
+          msg: "Password is incorrect",
         });
 
       // return jwt token
@@ -46,27 +54,49 @@ exports.Login = async (req, res, next) => {
 
       return sendSuccess(res, {
         user,
-        message: "Success user login",
+        msg: "Success user login",
         token: user.getSignedJwtToken(),
       });
     })
     .catch(next);
 };
 
-exports.Logout = async (req, res, next) => {
-  var token = String(req.header("authorization")).slice(7);
-  await JWTTokenDao.invalidateToken(token)
-    .then((data) => sendSuccess(res, { message: "Token revoked successfully" }))
+// to view profile
+exports.GetUserProfile = (req, res, next) => {
+  UserDao.findUserById(req.user._id)
+    .then((user) => sendSuccess(res, { user }))
     .catch(next);
 };
 
-exports.RecoverPassword = async (req, res, next) => {
+// to register user
+exports.UpdateUserProfile = (req, res, next) => {
+  UserDao.findUserById(req.user._id)
+    .then((user) => {
+      switch (user.role) {
+        case UserEnum.MEMBER.value:
+          MemberEndpoint.UpdateMemberProfile(req, res, next);
+          break;
+        default:
+          throw new ValidationError("Invalid Role assigned!");
+      }
+    })
+    .catch(next);
+};
+
+exports.Logout = (req, res, next) => {
+  var token = String(req.header("authorization")).slice(7);
+  JWTTokenDao.invalidateToken(token)
+    .then((data) => sendSuccess(res, { msg: "Token revoked successfully!" }))
+    .catch(next);
+};
+
+exports.RecoverPassword = (req, res, next) => {
   const { email } = req.body;
   UserDao.findUserByEmail(email)
     .then((user) => {
       if (!user)
         return sendError(res, {
-          message: "No account associated with the email provided.",
+          msg: "No account associated with the email provided!",
         });
 
       //gnerate and save password recovery token
@@ -79,35 +109,29 @@ exports.RecoverPassword = async (req, res, next) => {
       PasswordRecoverySMS(user, recovery_token);
 
       return sendSuccess(res, {
-        message: "Password reset link has been sent succesfully",
+        msg: "Password reset link has been sent succesfully",
       });
     })
     .catch(next);
 };
 
-exports.ResetPassword = async (req, res, next) => {
-  const { email, token, password, repeat_password, logOutAllDevices } =
-    req.body;
-
-  if (repeat_password !== password)
-    return sendError(res, {
-      message: "Passwords do not match.",
-    });
+exports.ResetPassword = (req, res, next) => {
+  const { email, token, password, logOutAllDevices } = req.body;
 
   UserDao.findUserByEmailWithPwdResetExpire(email)
-    .then(async (user) => {
+    .then((user) => {
       if (!user)
-        return sendError(res, {
-          message: "Password recovery link has been expired or not available.",
-        });
+        throw new ValidationError(
+          "Password recovery link has been expired or not available."
+        );
 
       // compare the token in url and hashed version in the DB
       const isMatch = user.matchPasswordRecoveryTokens(token);
 
       if (!isMatch)
-        return sendError(res, {
-          message: "Password recovery link has been expired or not available.",
-        });
+        throw new ValidationError(
+          "Password recovery link has been expired or not available."
+        );
 
       // update password
       UserDao.updatePassword(user._id, password)
@@ -115,8 +139,8 @@ exports.ResetPassword = async (req, res, next) => {
           // revoke other logged in tokens if user requested
           if (logOutAllDevices) JWTTokenDao.invalidateTokensOfUser(user._id);
           return sendSuccess(res, {
-            updatedUser,
-            message: "Password was reset successfully!",
+            user: updatedUser,
+            msg: "Password was reset successfully!",
             token: updatedUser.getSignedJwtToken(),
           });
         })
@@ -126,13 +150,8 @@ exports.ResetPassword = async (req, res, next) => {
 };
 
 exports.UpdatePassword = async (req, res, next) => {
-  const { password, repeat_password, logOutAllDevices } = req.body;
+  const { password, logOutAllDevices } = req.body;
   const { user } = req;
-
-  if (repeat_password !== password)
-    return sendError(res, {
-      message: "Passwords do not match.",
-    });
 
   // update password
   UserDao.updatePassword(user._id, password)
@@ -140,7 +159,7 @@ exports.UpdatePassword = async (req, res, next) => {
       // revoke other logged in tokens if user requested
       if (logOutAllDevices) JWTTokenDao.invalidateTokensOfUser(user._id);
       return sendSuccess(res, {
-        message: "Password was updated successfully!",
+        msg: "Password was updated successfully!",
         token: updatedUser.getSignedJwtToken(),
       });
     })

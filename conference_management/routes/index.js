@@ -1,11 +1,11 @@
 const { sendError } = require("../common/util");
-const { AuthRoutes } = require("./AuthRoutes");
+const { UserRoutes } = require("./UserRoutes");
 const { MemberRoutes } = require("./MemberRoutes");
 const { SessionRoutes } = require("./SessionRoutes");
 
 exports.AppRoutes = (app) => {
   // Authentication Routes
-  AuthRoutes(app);
+  UserRoutes(app);
 
   // Member Routes
   MemberRoutes(app);

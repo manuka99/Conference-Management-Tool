@@ -12,6 +12,8 @@ exports.findMember = async (id) => {
 };
 
 exports.updateMember = async (id, data) => {
-  var member = await Member.findByIdAndUpdate(id, data);
+  var member = await Member.findByIdAndUpdate(id, data, {
+    useFindAndModify: false,
+  });
   return member;
 };

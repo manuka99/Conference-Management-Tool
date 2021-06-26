@@ -1,4 +1,10 @@
+const { sendError } = require("../common/util");
+
 exports.Authenticate = async (req, res, next) => {
   if (req.user && String(req.user._id).length > 0) return next();
-  else return res.status(401).json({ msg: "UnAuthorized" });
+  return sendError(
+    res,
+    { msg: "Please sign in to access protected content!" },
+    401
+  );
 };

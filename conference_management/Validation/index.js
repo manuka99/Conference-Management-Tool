@@ -1,4 +1,5 @@
 const { check } = require("express-validator");
+const { isBoolean } = require("lodash");
 const { Types } = require("mongoose");
 const UserDao = require("../Dao/UserDao");
 
@@ -20,7 +21,7 @@ exports.Validation = {
   phone: () =>
     check("phone")
       .isMobilePhone("si-LK")
-      .withMessage("Phone number is invalid or outside Sri Lanka"),
+      .withMessage("Phone number is invalid or outside Sri Lanka!"),
 
   password: () =>
     check("password")
@@ -34,22 +35,38 @@ exports.Validation = {
       )
       .not()
       .isIn(["123", "password", "god", "abc"])
-      .withMessage("Do not use a common word as the password")
+      .withMessage("Do not use a common word as the password!")
       .matches(/\d/)
       .withMessage("Password must contain a number!"),
 
   confirm_password: () =>
     check("confirm_password")
       .custom(ValidateConfirmPassword)
-      .withMessage("Password confirmation does not match password"),
+      .withMessage("Password confirmation does not match password!"),
 
   objectId: (key = "_id") =>
     check(key)
       .not()
       .isEmpty()
-      .withMessage(`${key} cannot be empty`)
+      .withMessage(`${key} cannot be empty!`)
       .custom(ValidateObjectId)
-      .withMessage(`${key} is not a valid mongoDb objectID`),
+      .withMessage(`${key} is not a valid mongoDb objectID!`),
+
+  boolean: (key) =>
+    check(key)
+      .not()
+      .isEmpty()
+      .withMessage(`${key} cannot be empty!`)
+      .isBoolean()
+      .withMessage(`${key} is not a valid boolean!`),
+
+  includes: (key, ...enums) =>
+    check(key)
+      .not()
+      .isEmpty()
+      .withMessage(`${key} cannot be empty!`)
+      .isIn([...enums])
+      .withMessage(`${key} is not a valid type!`),
 
   text: (feild, min = 4, max = 1000) =>
     check(feild)

@@ -1,6 +1,7 @@
+const { sendError } = require("../common/util");
+
 exports.GuestUser = (req, res, next) => {
-  console.log(req);
   if (req.user)
-    return res.status(422).json({ msg: "You are already authenticated" });
+    return sendError(res, { msg: "You are already authenticated!" });
   else return next();
 };

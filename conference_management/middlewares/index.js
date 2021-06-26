@@ -1,5 +1,6 @@
-const UserEnum = require("../models/UserModel");
+const { UserEnum } = require("../models/UserModel");
 const { Authenticate } = require("./Authenticate");
+const { GuestUser } = require("./GuestUser");
 const { RoleAuth } = require("./RoleAuth");
 const { TokenValidator } = require("./TokenValidator");
 
@@ -20,6 +21,9 @@ exports.AppMiddlewares = (app) => {
     ],
     Authenticate
   );
+
+  // required guest routes,
+  app.use(["/api/public/login", "/api/public/register"], GuestUser);
 
   // ADMIN CONTENT
   app.use("/api/admin/", RoleAuth([UserEnum.ADMIN.value]));

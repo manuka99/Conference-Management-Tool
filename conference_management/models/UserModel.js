@@ -5,10 +5,13 @@ const UserEnum = new Enum({
   EDITOR: "EDITOR",
   REVIEWER: "REVIEWER",
   MEMBER: "MEMBER",
+});
+
+const MemberEnum = new Enum({
   RESEARCHER: "RESEARCHER",
   PRESENTER: "PRESENTER",
   ATTENDEE: "ATTENDEE",
   INNOVATOR: "INNOVATOR",
 });
 
-module.exports = UserEnum;
+module.exports = { UserEnum, MemberEnum };

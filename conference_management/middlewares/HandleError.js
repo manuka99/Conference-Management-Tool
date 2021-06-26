@@ -7,6 +7,6 @@ exports.HandleError = (err, req, res, next) => {
   if (err instanceof mongoose.Error) {
     sendError(res, err, 422);
   } else if (err instanceof ValidationError) {
-    sendError(res, { errors: err.data });
+    sendError(res, { errors: err.data, msg: err.message }, 422);
   } else sendError(res, err);
 };
