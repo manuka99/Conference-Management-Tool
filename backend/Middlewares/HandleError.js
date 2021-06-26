@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { sendError } = require("../common/util");
+const { sendError, FormatValidationError } = require("../common/util");
 const ValidationError = require("../Common/ValidationError");
 
 exports.HandleError = (err, req, res, next) => {
@@ -7,6 +7,6 @@ exports.HandleError = (err, req, res, next) => {
   if (err instanceof mongoose.Error) {
     sendError(res, err, 422);
   } else if (err instanceof ValidationError) {
-    sendError(res, { errors: err.data, msg: err.message }, 422);
+    sendError(res, FormatValidationError(err), 422);
   } else sendError(res, err);
 };

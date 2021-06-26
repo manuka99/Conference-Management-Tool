@@ -10,7 +10,10 @@ const UserDao = require("../Dao/UserDao");
 const JWTTokenDao = require("../Dao/JWTTokenDao");
 const ValidationError = require("../Common/ValidationError");
 
-/* VALIDATION RULES */
+//to validate token
+exports.GetRequestUser = (req, res, next) => {
+  return sendSuccess(res, { user: req.user });
+};
 
 // to register user
 exports.Registration = (req, res, next) => {

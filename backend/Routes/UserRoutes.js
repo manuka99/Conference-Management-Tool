@@ -8,6 +8,7 @@ const { ValidateRequest } = require("../Middlewares/ValidateRequest");
 
 exports.UserRoutes = (app) => {
   /* Public Routes */
+  app.get("/api/public/validate-token", UserEndpoint.GetRequestUser);
   app.post("/api/public/register", UserEndpoint.Registration);
   app.post(
     "/api/public/login",
