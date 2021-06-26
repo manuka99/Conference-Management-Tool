@@ -19,11 +19,11 @@ const FormatValidationError = (err) => {
         for (let index = 0; index < data.length; index++) {
           const error = data[index];
           if (error.param in params) params[error.param].push(error.msg);
-          else params[error.param] = [error.msg];
+          else params[error.param] = new Array(error.msg);
         }
         return { msg: message, params };
       }
-      return err;
+      return { msg: message };
     }
   } catch (error) {
     Consola.error("FormatValidationError: ", err);

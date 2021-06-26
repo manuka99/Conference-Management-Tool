@@ -1,6 +1,7 @@
 const UserEndpoint = require("../endpoints/UserEndpoint");
 const {
   LoginRules,
+  RecoverPasswordRules,
   ResetPasswordRules,
   UpdatePasswordRules,
 } = require("../Validation/UserRules");
@@ -16,7 +17,12 @@ exports.UserRoutes = (app) => {
     ValidateRequest,
     UserEndpoint.Login
   );
-  app.post("/api/public/recover-password", UserEndpoint.RecoverPassword);
+  app.post(
+    "/api/public/recover-password",
+    RecoverPasswordRules,
+    ValidateRequest,
+    UserEndpoint.RecoverPassword
+  );
   app.post(
     "/api/public/reset-password",
     ResetPasswordRules,

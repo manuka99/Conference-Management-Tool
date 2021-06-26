@@ -1,11 +1,7 @@
 const { Validation } = require(".");
 const { UserEnum } = require("../models/UserModel");
 
-exports.LoginRules = [
-  Validation.email(),
-  Validation.password(),
-  Validation.confirm_password(),
-];
+exports.LoginRules = [Validation.email(), Validation.password()];
 
 exports.URegistrationRules = [
   Validation.text("firstName", 4, 20),
@@ -40,6 +36,8 @@ exports.UpdatePasswordRules = [
   Validation.password(),
   Validation.confirm_password(),
 ];
+
+exports.RecoverPasswordRules = [Validation.email()];
 
 exports.ResetPasswordRules = [
   ...this.UpdatePasswordRules,

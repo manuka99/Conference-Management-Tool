@@ -8,7 +8,7 @@ const consola = require("consola");
 // decode jwt token (if present) then if the jwt token is valid request will be authenticated
 exports.TokenValidator = async (req, res, next) => {
   try {
-    // access token in request
+    // access token in request (bearer token)
     var token = String(req.header("authorization")).slice(7);
 
     // verify and decode token to get data

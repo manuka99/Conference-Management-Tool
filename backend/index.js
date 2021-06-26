@@ -7,7 +7,6 @@ var useragent = require("express-useragent");
 const { AppRoutes } = require("./routes");
 const { AppMiddlewares } = require("./middlewares");
 const { HandleError } = require("./middlewares/HandleError");
-const { CustomValidators } = require("./Validation/CustomValidators");
 
 // init the app
 const app = express();
