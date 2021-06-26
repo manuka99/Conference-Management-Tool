@@ -48,43 +48,43 @@ exports.Validation = {
     check(key)
       .not()
       .isEmpty()
-      .withMessage(`${key} cannot be empty!`)
+      .withMessage(`Value cannot be empty!`)
       .custom(ValidateObjectId)
-      .withMessage(`${key} is not a valid mongoDb objectID!`),
+      .withMessage(`Value is not a valid mongoDb objectID!`),
 
   boolean: (key) =>
     check(key)
       .not()
       .isEmpty()
-      .withMessage(`${key} cannot be empty!`)
+      .withMessage(`Value cannot be empty!`)
       .isBoolean()
-      .withMessage(`${key} is not a valid boolean!`),
+      .withMessage(`Value is not a valid boolean!`),
 
   includes: (key, ...enums) =>
     check(key)
       .not()
       .isEmpty()
-      .withMessage(`${key} cannot be empty!`)
+      .withMessage(`Value cannot be empty!`)
       .isIn([...enums])
-      .withMessage(`${key} is not a valid type!`),
+      .withMessage(`Value is not a valid type!`),
 
   text: (feild, min = 4, max = 1000) =>
     check(feild)
       .not()
       .isEmpty()
-      .withMessage(`${feild} is required!`)
+      .withMessage(`Value is required!`)
       .isString()
-      .withMessage(`${feild} is not a valid string!`)
+      .withMessage(`Value is not a valid string!`)
       .isLength({ min, max })
-      .withMessage(`${feild} should be within ${min} - ${max} chars range!`),
+      .withMessage(`Value should be within ${min} - ${max} chars range!`),
 
   date: (feild) =>
     check(feild)
       .not()
       .isEmpty()
-      .withMessage(`${feild} is required!`)
+      .withMessage(`Value is required!`)
       .isDate()
-      .withMessage(`${feild} is not a valid date!`),
+      .withMessage(`Value is not a valid date!`),
 };
 
 const ValidateObjectId = (key) =>

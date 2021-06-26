@@ -7,12 +7,6 @@ exports.MRegistrationRules = [
   ...URegistrationRules,
   // Validation.date("date_of_birth"),
   Validation.text("address", 10, 150),
-];
-
-exports.MRegistrationRules = [
-  ...URegistrationRules,
-  // Validation.date("date_of_birth"),
-  Validation.text("address", 10, 150),
   Validation.includes(
     "sub_role",
     MemberEnum.RESEARCHER.value,

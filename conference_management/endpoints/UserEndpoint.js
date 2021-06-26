@@ -2,6 +2,9 @@ const { PasswordRecoveryEmail } = require("../services/MailServiceImpl");
 const { PasswordRecoverySMS } = require("../services/SmsServiceImpl");
 const { sendError, sendSuccess } = require("../common/util");
 const { UserEnum } = require("../models/UserModel");
+const AdminEndpoint = require("./AdminEndpoint");
+const EditorEndpoint = require("./EditorEndpoint");
+const ReviewerEndpoint = require("./ReviewerEndpoint");
 const MemberEndpoint = require("./MemberEndpoint");
 const UserDao = require("../Dao/UserDao");
 const JWTTokenDao = require("../Dao/JWTTokenDao");
@@ -14,13 +17,13 @@ exports.Registration = (req, res, next) => {
   const { role } = req.body;
   switch (role) {
     case UserEnum.ADMIN.value:
-      MemberEndpoint.MemberRegistration(req, res, next);
+      AdminEndpoint.AdminRegistration(req, res, next);
       break;
     case UserEnum.EDITOR.value:
-      MemberEndpoint.MemberRegistration(req, res, next);
+      EditorEndpoint.EditorRegistration(req, res, next);
       break;
     case UserEnum.REVIEWER.value:
-      MemberEndpoint.MemberRegistration(req, res, next);
+      ReviewerEndpoint.ReviewerRegistration(req, res, next);
       break;
     case UserEnum.MEMBER.value:
       MemberEndpoint.MemberRegistration(req, res, next);
@@ -73,6 +76,15 @@ exports.UpdateUserProfile = (req, res, next) => {
   UserDao.findUserById(req.user._id)
     .then((user) => {
       switch (user.role) {
+        case UserEnum.ADMIN.value:
+          AdminEndpoint.UpdateAdminProfile(req, res, next);
+          break;
+        case UserEnum.EDITOR.value:
+          EditorEndpoint.UpdateEditorProfile(req, res, next);
+          break;
+        case UserEnum.REVIEWER.value:
+          ReviewerEndpoint.UpdateReviewerProfile(req, res, next);
+          break;
         case UserEnum.MEMBER.value:
           MemberEndpoint.UpdateMemberProfile(req, res, next);
           break;

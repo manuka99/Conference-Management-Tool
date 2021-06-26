@@ -6,11 +6,6 @@ exports.createNewMember = async (data) => {
   return member;
 };
 
-exports.findMember = async (id) => {
-  var member = await Member.findById(id);
-  return member;
-};
-
 exports.updateMember = async (id, data) => {
   var member = await Member.findByIdAndUpdate(id, data, {
     useFindAndModify: false,
