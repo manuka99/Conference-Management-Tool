@@ -11,13 +11,12 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Api from "../../../../util/Api";
-import swal from "sweetalert";
-import HelperTexts from "../../../../components/HelperTexts";
-import { useNavigate } from "react-router";
+import Api from "../../../../common/Api";
 import { Link as Link_NAV } from "react-router-dom";
 import Error from "../../../../components/alerts/Error";
-import { authenticate } from "../../../../util/auth";
+import { authenticate } from "../../../../common/auth";
+import swal from "sweetalert";
+import HelperTexts from "../../../../components/HelperTexts";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Index() {
   const classes = useStyles();
-  const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({});
   const [errors, setErrors] = useState({});
 

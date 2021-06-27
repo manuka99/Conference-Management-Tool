@@ -5,6 +5,8 @@ import "./App.css";
 import { AllRoutes } from "./Routes";
 import Loading from "./Pages/Loading";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Payhere, AccountCategory } from "payhere-js-sdk";
+import { PAYHERE_MERCHANT } from "./common/AppConstants";
 
 function App(props) {
   const location = useLocation();
@@ -13,6 +15,9 @@ function App(props) {
   const [firstLaunch, setFirstLaunch] = useState(true);
 
   useEffect(() => {
+    /* PAYHERE SANDBOX */
+    Payhere.init(PAYHERE_MERCHANT, AccountCategory.SANDBOX);
+
     // fetch user details for auth
     props.fetch_user_data();
 

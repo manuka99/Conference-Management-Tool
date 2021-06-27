@@ -54,7 +54,7 @@ export function Error406() {
         <img
           alt="Error 406"
           className={classes.image}
-          src="/images/error406.jpg"
+          src="/static/images/error406.jpg"
         />
       </div>
       <div className={classes.buttonContainer}>

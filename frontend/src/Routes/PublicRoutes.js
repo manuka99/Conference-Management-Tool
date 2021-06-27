@@ -5,6 +5,7 @@ import loadable from "@loadable/component";
 import AuthRoute from "../components/protectedRoutes/AuthRoute";
 import GuestRoute from "../components/protectedRoutes/GuestRoute";
 import AuthRoutes from "./AuthRoutes";
+import { PaymentRoutes } from "./PaymentRoutes";
 
 // loadable
 const Public = loadable(() => import("../Pages/Public/index"), {
@@ -20,6 +21,7 @@ export const PublicRoutes = () => {
     <Route path="/public" element={<Public />}>
       <Route path="/" element={<Landing />} />
       {AuthRoutes()}
+      {PaymentRoutes()}
     </Route>
   );
 };

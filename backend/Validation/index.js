@@ -85,6 +85,9 @@ exports.Validation = {
       .withMessage(`This feild is required`)
       .isDate()
       .withMessage(`This value is not a valid date`),
+
+  file: (feild = "file") =>
+    check(feild).custom(ValidateFile).withMessage("Submission is required"),
 };
 
 const ValidateObjectId = (key) =>
@@ -104,3 +107,8 @@ const ValidateUserEmail = async (email, { req }) => {
 };
 
 const ValidateConfirmPassword = (value, { req }) => value == req.body.password;
+
+const ValidateFile = (value, { req }) => {
+  if (req.files && req.files.file) return true;
+  return false;
+};

@@ -9,7 +9,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Api from "../../../../util/Api";
+import Api from "../../../../common/Api";
 import swal from "sweetalert";
 import { useNavigate } from "react-router";
 import { Link as Link_NAV, useParams } from "react-router-dom";
@@ -19,7 +19,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import HelperTexts from "../../../../components/HelperTexts";
-import { authenticate } from "../../../../util/auth";
+import { authenticate } from "../../../../common/auth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

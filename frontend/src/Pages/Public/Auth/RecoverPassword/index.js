@@ -6,7 +6,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Api from "../../../../util/Api";
+import Api from "../../../../common/Api";
 import Error from "../../../../components/alerts/Error";
 import ButtonProgress from "../../../../components/common/ButtonProgress/ButtonProgress";
 import swal from "sweetalert";

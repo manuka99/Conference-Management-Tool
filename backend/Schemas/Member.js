@@ -1,11 +1,11 @@
 const User = require("./User");
 
-const { Schema } = require("mongoose");
+const { Schema, Types } = require("mongoose");
 
 const MemberSchema = new Schema({
   date_of_birth: {
-    type: String,
-    required: false,
+    type: Date,
+    required: [true, "Date of birth must not be empty."],
   },
 
   address: {
@@ -19,6 +19,15 @@ const MemberSchema = new Schema({
     type: String,
     required: true,
     enum: ["RESEARCHER", "PRESENTER", "ATTENDEE", "INNOVATOR"],
+  },
+  payment: {
+    type: String,
+    required: false,
+  },
+  file: {
+    type: Types.ObjectId,
+    required: false,
+    ref: "upload",
   },
 });
 

@@ -1,5 +1,5 @@
 import { Route, Navigate } from "react-router-dom";
-import { isLoggedIn } from "../../util/auth";
+import { isLoggedIn } from "../../common/auth";
 
 function GuestRoute({ path, ...rest }) {
   const { userAuth } = isLoggedIn();

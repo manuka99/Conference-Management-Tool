@@ -57,7 +57,7 @@ const Error500 = () => {
         <img
           alt="Error 500"
           className={classes.image}
-          src="/images/undraw_server_down_s4lk.svg"
+          src="/static/images/undraw_server_down_s4lk.svg"
         />
       </div>
       <div className={classes.buttonContainer}>

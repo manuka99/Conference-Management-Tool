@@ -6,11 +6,12 @@ const {
   MemberProfileUpdateRules,
 } = require("../Validation/MemberRules");
 const { ValidateRequest } = require("../Middlewares/ValidateRequest");
+const UploadDau = require("../Dao/UploadDau");
 
 /* Validations */
 const ValidateMemberRegistration = async (req) => {
   await Promise.all(
-    MRegistrationRules.map((validation) => validation.run(req))
+    MRegistrationRules(req.body).map((validation) => validation.run(req))
   );
   ValidateRequest(req);
 };
@@ -28,8 +29,16 @@ exports.MemberRegistration = async (req, res, next) => {
     // validations
     await ValidateMemberRegistration(req);
 
+    const memberData = req.body;
+
+    // upload file if present
+    if (req.files && req.files.file) {
+      const upload = await UploadDau.UploadFile(req.files.file);
+      memberData.file = upload._id;
+    }
+
     // register member
-    const user = await MemberDao.createNewMember(req.body);
+    const user = await MemberDao.createNewMember(memberData);
     sendSuccess(res, { user, token: user.getSignedJwtToken() });
   } catch (error) {
     next(error);
@@ -50,7 +59,15 @@ exports.UpdateMemberProfile = async (req, res, next) => {
       "email",
       "date_Of_birth",
       "address",
+      "payment",
     ]);
+
+    // upload file if present
+    if (req.files && req.files.file) {
+      const upload = await UploadDau.UploadFile(req.files.file);
+      updatingMemberData.file = upload._id;
+    }
+
     const user = await MemberDao.updateMember(req.user._id, updatingMemberData);
     sendSuccess(res, { msg: "Profile was updated successfully.", user });
   } catch (error) {
