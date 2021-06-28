@@ -1,0 +1,755 @@
+window.__DEFAULT_CODE_FRONTEND_BASE={'HTML':function(code){return{files:{"package.json":{content:{"name":"vanilla","version":"1.0.0","main":"index.html","scripts":{"start":"parcel index.html --open","build":"parcel build index.html"},"dependencies":{"jquery":"3.5.1","lodash":"4.17.15","bootstrap":"4.0.0",},"devDependencies":{"@babel/core":"7.2.0","parcel-bundler":"^1.6.1","jquery":"3.5.1"}}},"index.html":{content:code}},}},'JavaScript':function(code){return{files:{"package.json":{content:{"name":"vanilla","version":"1.0.0","main":"index.html","scripts":{"start":"parcel index.html --open","build":"parcel build index.html"},"dependencies":{"jquery":"3.5.1","lodash":"4.17.15"},"devDependencies":{"@babel/core":"7.2.0","parcel-bundler":"^1.6.1","jquery":"3.5.1"},"keywords":["javascript","starter"]}},"src/index.js":{content:code},"index.html":{content:`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>JavaScript App</title>
+                <meta charset="UTF-8" />
+              </head>
+              <body>
+                <div id="root"></div>
+                <script src="src/index.js"></script>
+              </body>
+            </html>`}},}},'React':function(code){return{files:{"package.json":{content:{dependencies:{"react":"^16.8.7","react-dom":"^16.12.0","react-redux":"^7.0.2","redux":"^4.0.1","prop-types":"^15.7.2","@material-ui/core":"4.9.14","@material-ui/system":"4.9.14","@material-ui/utils":"4.9.12","material-colors":"1.2.6"}}},"src/index.js":{content:code},"public/index.html":{content:'<div id="root"></div>'}},}},'ReactNative':function(code){return{files:{"package.json":{content:{"main":"src/index.js","dependencies":{"react":"16.13.1","react-dom":"16.13.1","react-native-web":"0.13.16","react-scripts":"3.4.1"},"scripts":{"start":"react-scripts start","build":"react-scripts build"}}},"src/index.js":{content:`
+            import { AppRegistry } from "react-native";
+            import App from "./App";
+            AppRegistry.registerComponent("App", () => App);
+            AppRegistry.runApplication("App", {
+              rootTag: document.getElementById("root")
+            });          
+          `},"src/App.js":{content:code},"public/index.html":{content:`
+            <!DOCTYPE html>
+            <head>
+              <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+              <meta name="theme-color" content="#000000">
+            <style>
+              html, body {
+                height: 100%;
+              }
+              body {
+                overflow: hidden;
+              }
+              #root {
+                display: flex;
+                height: 100%;
+              }
+            </style>
+            </head>
+            <body>
+              <div id="root"></div>
+            </body>
+            </html>
+          `}},}},'Vue':function(code){return{files:{"package.json":{content:{"dependencies":{"vue":"^2.5.22"},}},"src/App.vue":{content:code},"src/main.js":{content:`import Vue from "vue";
+            import App from "./App.vue";
+            Vue.config.productionTip = false;
+            new Vue({
+              render: h => h(App)
+            }).$mount("#app");
+          `},"public/index.html":{content:`
+            <!DOCTYPE html>
+            <html lang="en">
+              <head>
+                <meta charset="utf-8">
+              </head>
+              <body>
+                <div id="app"></div>
+              </body>
+            </html>`}}}},'AngularJS':function(code){return{files:{"package.json":{content:{"dependencies":{"angular":"1.6.10"},}},"index.js":{content:code},"index.html":{content:`
+            <html>
+            <body>
+              <div id="root" ng-app="myApp" ng-controller="myController as myCtrl">
+                <div>{{ myCtrl.title }}</div>
+                <div id="getButtonCounter">{{ myCtrl.buttonClickCount }}</div>
+                <button id="clickButtonCounter" ng-click="myCtrl.increaseCount()">Increase</button>
+              </div>
+            </body>
+            </html>
+          `}}}},'Angular':function(code){return{files:{"package.json":{content:{"dependencies":{"@angular/animations":"8.2.14","@angular/common":"8.2.14","@angular/compiler":"8.2.14","@angular/core":"8.2.14","@angular/forms":"8.2.14","@angular/http":"6.0.9","@angular/platform-browser":"8.2.14","@angular/platform-browser-dynamic":"8.2.14","@angular/router":"8.2.14","core-js":"3.6.0","rxjs":"6.5.3","zone.js":"0.10.2"},"devDependencies":{"@angular/cli":"1.6.6","@angular/compiler-cli":"^5.2.0","@angular/language-service":"^5.2.0","@types/core-js":"0.9.46","@types/jasmine":"~2.8.3","@types/jasminewd2":"~2.0.2","@types/node":"~6.0.60","codelyzer":"^4.0.1","jasmine-core":"~2.8.0","jasmine-spec-reporter":"~4.2.1","protractor":"~5.1.2","ts-node":"~4.1.0","tslint":"~5.9.1","typescript":"~2.5.3"},}},"config.js":{content:`var angularVersion;
+            if (window.AngularVersionForThisPlunker === 'latest') {
+              angularVersion = ''; //picks up latest
+            }
+            else {
+              angularVersion = '@' + window.AngularVersionForThisPlunker;
+            }
+            System.config({
+              //use typescript for compilation
+              transpiler: 'typescript',
+              //typescript compiler options
+              typescriptOptions: {
+                emitDecoratorMetadata: true
+              },
+              paths: {
+                'npm:': 'https://unpkg.com/'
+              },
+              //map tells the System loader where to look for things
+              map: {
+                'app': './src',
+                '@angular/core': 'npm:@angular/core' + angularVersion + '/bundles/core.umd.js',
+                '@angular/common': 'npm:@angular/common' + angularVersion + '/bundles/common.umd.js',
+                '@angular/common/http': 'npm:@angular/common' + angularVersion + '/bundles/common-http.umd.js',
+                '@angular/compiler': 'npm:@angular/compiler' + angularVersion + '/bundles/compiler.umd.js',
+                '@angular/platform-browser': 'npm:@angular/platform-browser' + angularVersion + '/bundles/platform-browser.umd.js',
+                '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic' + angularVersion + '/bundles/platform-browser-dynamic.umd.js',
+                '@angular/http': 'npm:@angular/http' + angularVersion + '/bundles/http.umd.js',
+                '@angular/router': 'npm:@angular/router' + angularVersion + '/bundles/router.umd.js',
+                '@angular/forms': 'npm:@angular/forms' + angularVersion + '/bundles/forms.umd.js',
+                '@angular/animations': 'npm:@angular/animations' + angularVersion + '/bundles/animations.umd.js',
+                '@angular/platform-browser/animations': 'npm:@angular/platform-browser' + angularVersion + '/bundles/platform-browser-animations.umd.js',
+                '@angular/animations/browser': 'npm:@angular/animations' + angularVersion + '/bundles/animations-browser.umd.js',
+                '@angular/core/testing': 'npm:@angular/core' + angularVersion + '/bundles/core-testing.umd.js',
+                '@angular/common/testing': 'npm:@angular/common' + angularVersion + '/bundles/common-testing.umd.js',
+                '@angular/common/http/testing': 'npm:@angular/common' + angularVersion + '/bundles/common-http-testing.umd.js',
+                '@angular/compiler/testing': 'npm:@angular/compiler' + angularVersion + '/bundles/compiler-testing.umd.js',
+                '@angular/platform-browser/testing': 'npm:@angular/platform-browser' + angularVersion + '/bundles/platform-browser-testing.umd.js',
+                '@angular/platform-browser-dynamic/testing': 'npm:@angular/platform-browser-dynamic' + angularVersion + '/bundles/platform-browser-dynamic-testing.umd.js',
+                '@angular/http/testing': 'npm:@angular/http' + angularVersion + '/bundles/http-testing.umd.js',
+                '@angular/router/testing': 'npm:@angular/router' + angularVersion + '/bundles/router-testing.umd.js',
+                'tslib': 'npm:tslib@1.6.1',
+                'rxjs': 'npm:rxjs',
+                'typescript': 'npm:typescript@2.2.1/lib/typescript.js'
+              },
+              //packages defines our app package
+              packages: {
+                app: {
+                  main: './main.ts',
+                  defaultExtension: 'ts'
+                },
+                rxjs: {
+                  defaultExtension: 'js'
+                }
+              }
+            });`},"src/main.ts":{content:`import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+                    import { AppModule } from './app.module';
+                    platformBrowserDynamic().bootstrapModule(AppModule)`},"src/polyfills.ts":{content:`import "core-js/proposals/reflect-metadata";
+                    import "zone.js/dist/zone";`},"src/app.module.ts":{content:`import { BrowserModule } from '@angular/platform-browser';
+                    import { NgModule } from '@angular/core';
+                    import { ReactiveFormsModule } from '@angular/forms';
+                    import { FormsModule } from '@angular/forms';
+                    import { AppComponent } from './app.component';
+                    import { MainAppComponent } from './app-area.component';
+                    @NgModule({
+                      declarations: [AppComponent, MainAppComponent],
+                      imports: [BrowserModule, ReactiveFormsModule, FormsModule],
+                      providers: [],
+                      bootstrap: [AppComponent]
+                    })
+                    export class AppModule { }`},"src/app.component.ts":{content:`import { Component, enableProdMode } from '@angular/core';
+                  enableProdMode();
+                  @Component({
+                    selector: 'app-root',
+                    template: '' + 
+                      '<app-area></app-area>'
+                  })
+                  export class AppComponent { }`},"src/app-area.component.ts":{content:code},"src/index.html":{content:`<html>
+          <body>
+            <app-root></app-root>
+          </body>
+          </html>`}}}},};window.__DEFAULT_CODE_FRONTEND_MAIN={'HTML Anchor Link':function(){return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Challenge</title>
+  </head>
+  <body>
+    <h1>Hello world!</h1>
+  </body>
+</html>
+`},'HTML Basic Table':function(){return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Challenge</title>
+  </head>
+  <body>
+    <h1>Table will go here</h1>
+  </body>
+</html>
+`},'Bootstrap Simple Buttons':function(){return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Challenge</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h1>Hello world!</h1>
+  </body>
+</html>
+`},'React List':function(){return `import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+function DataList(props) {
+  return (
+    <h2>code goes here</h2>
+  );
+}
+
+const data = [
+  { name: 'Daniel', age: 25 },
+  { name: 'John', age: 24 },
+  { name: 'Jen', age: 31 },
+];
+
+ReactDOM.render(
+  <DataList data={ data } />,
+  document.getElementById('root')
+);`},'React Simple Counter':function(){return `import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div id="mainArea">
+        <p>button count: <span>0</span></p>
+        <button id="mainButton">Increase</button>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Counter />,
+  document.getElementById('root')
+);`},'React Phone Book':function(){return `import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+const style = {
+  table: {
+    borderCollapse: 'collapse'
+  },
+  tableCell: {
+    border: '1px solid gray',
+    margin: 0,
+    padding: '5px 10px',
+    width: 'max-content',
+    minWidth: '150px'
+  },
+  form: {
+    container: {
+      padding: '20px',
+      border: '1px solid #F0F8FF',
+      borderRadius: '15px',
+      width: 'max-content',
+      marginBottom: '40px'
+    },
+    inputs: {
+      marginBottom: '5px'
+    },
+    submitBtn: {
+      marginTop: '10px',
+      padding: '10px 15px',
+      border:'none',
+      backgroundColor: 'lightseagreen',
+      fontSize: '14px',
+      borderRadius: '5px'
+    }
+  }
+}
+
+function PhoneBookForm({ addEntryToPhoneBook }) {
+  return (
+    <form onSubmit={e => { e.preventDefault() }} style={style.form.container}>
+      <label>First name:</label>
+      <br />
+      <input 
+        style={style.form.inputs}
+        className='userFirstname'
+        name='userFirstname' 
+        type='text'
+      />
+      <br/>
+      <label>Last name:</label>
+      <br />
+      <input 
+        style={style.form.inputs}
+        className='userLastname'
+        name='userLastname' 
+        type='text' 
+      />
+      <br />
+      <label>Phone:</label>
+      <br />
+      <input
+        style={style.form.inputs}
+        className='userPhone' 
+        name='userPhone' 
+        type='text'
+      />
+      <br/>
+      <input 
+        style={style.form.submitBtn} 
+        className='submitButton'
+        type='submit' 
+        value='Add User' 
+      />
+    </form>
+  )
+}
+
+function InformationTable(props) {
+  return (
+    <table style={style.table} className='informationTable'>
+      <thead> 
+        <tr>
+          <th style={style.tableCell}>First name</th>
+          <th style={style.tableCell}>Last name</th>
+          <th style={style.tableCell}>Phone</th>
+        </tr>
+      </thead> 
+    </table>
+  );
+}
+
+function Application(props) {
+  return (
+    <section>
+      <PhoneBookForm />
+      <InformationTable />
+    </section>
+  );
+}
+
+ReactDOM.render(
+  <Application />,
+  document.getElementById('root')
+);`},'React Button Toggle':function(){return `import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleClick() {
+    // todo
+  }
+
+  render() {
+    return (
+      <button>ON</button>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Toggle />,
+  document.getElementById('root')
+);`},'React Tic Tac Toe':function(){return `import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+const rowStyle = {
+  display: 'flex'
+}
+
+const squareStyle = {
+  'width':'60px',
+  'height':'60px',
+  'backgroundColor': '#ddd',
+  'margin': '4px',
+  'display': 'flex',
+  'justifyContent': 'center',
+  'alignItems': 'center',
+  'fontSize': '20px',
+  'color': 'white'
+}
+
+const boardStyle = {
+  'backgroundColor': '#eee',
+  'width': '208px',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'display': 'flex',
+  'flexDirection': 'column',
+  'border': '3px #eee solid'
+}
+
+const containerStyle = {
+  'display': 'flex',
+  'alignItems': 'center',
+  'flexDirection': 'column'
+}
+
+const instructionsStyle = {
+  'marginTop': '5px',
+  'marginBottom': '5px',
+  'fontWeight': 'bold',
+  'fontSize': '16px',
+}
+
+const buttonStyle = {
+  'marginTop': '15px',
+  'marginBottom': '16px',
+  'width': '80px',
+  'height': '40px',
+  'backgroundColor': '#8acaca',
+  'color': 'white',
+  'fontSize': '16px',
+}
+
+class Square extends React.Component {
+  render() {
+    return (
+      <div
+        className="square"
+        style={squareStyle}>
+      </div>
+    );
+  }
+}
+
+class Board extends React.Component {
+  render() {
+    return (
+      <div style={containerStyle} className="gameBoard">
+        <div id="statusArea" className="status" style={instructionsStyle}>Next player: <span>X</span></div>
+        <div id="winnerArea" className="winner" style={instructionsStyle}>Winner: <span>None</span></div>
+        <button style={buttonStyle}>Reset</button>
+        <div style={boardStyle}>
+          <div className="board-row" style={rowStyle}>
+            <Square />
+            <Square />
+            <Square />
+          </div>
+          <div className="board-row" style={rowStyle}>
+            <Square />
+            <Square />
+            <Square />
+          </div>
+          <div className="board-row" style={rowStyle}>
+            <Square />
+            <Square />
+            <Square />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class Game extends React.Component {
+  render() {
+    return (
+      <div className="game">
+        <div className="game-board">
+          <Board />
+        </div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Game />,
+  document.getElementById('root')
+);`},'React Context API':function(){return `import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+const languages = ['JavaScript', 'Python'];
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      // implement Context here so can be used in child components
+      <MainSection />
+    );
+  }
+}
+
+class MainSection extends React.Component {
+  render() {
+    return (
+      <div>
+        <p id="favoriteLanguage">Favorite programing language: {null}</p>
+        <button id="changeFavorite">Toggle language</button>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+`},'React Native Simple Counter':function(){return `import React, { useState } from "react";
+import { Text, View } from "react-native";
+
+const SimpleCounter = () => {
+  return (
+    <View>
+      <Text>button count: <span id="actualCount">0</span></Text>
+      <button id="mainButton">Increase</button>
+    </View>
+  );
+};
+
+export default SimpleCounter;
+`},'JavaScript Button Toggle':function(){return `import $ from "jquery";
+
+const rootApp = document.getElementById("root");
+rootApp.innerHTML = '<button>ON</button>';
+`},'JavaScript Simple Counter':function(){return `import $ from "jquery";
+
+const rootApp = document.getElementById("root");
+rootApp.innerHTML = \`<div id="mainArea">
+  <p>button count: <span>0</span></p>
+  <button id="mainButton">Increase</button>
+</div>\`;
+`},'AngularJS Simple Counter':function(){return `import angular from "angular";
+
+angular.module("myApp", []).controller("myController", function() {
+
+  // change below to get counter working
+  let vm = this;
+  vm.title = "no title";
+  vm.buttonClickCount = 0;
+  vm.increaseCount = null;
+
+});`},'Angular Simple Counter':function(){return `// @ts-ignore
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-area',
+  template: '' +
+    '<div id="mainArea">' +
+      '<p>button count: <span>0</span></p>' +
+      '<button id="mainButton">Increase</button>' +
+    '</div>',
+  styles: []
+})
+
+export class MainAppComponent implements OnInit {
+  // code goes here
+}`},'Angular Reactive Form':function(){return `// @ts-ignore
+import { Component, OnInit } from '@angular/core';
+// @ts-ignore
+import { FormGroup, FormControl } from '@angular/forms';
+
+@Component({
+  selector: 'app-area',
+  template: '' + 
+    'form goes here...' +
+    '<pre>{{ form.value | json }}</pre>',
+  styles: []
+})
+
+export class MainAppComponent implements OnInit {
+  form: FormGroup;
+  person = {
+    firstname: 'Coder',
+    age: 25,
+    lastname: 'Byte',
+    twitter: '@coderbyte'
+  };
+  personProps = [];
+
+  ngOnInit() {
+    const formDataObj = {};
+    for (const prop of Object.keys(this.person)) {
+      formDataObj[prop] = new FormControl(this.person[prop]);
+      this.personProps.push(prop);
+    }
+    this.form = new FormGroup(formDataObj);
+  }
+}`},'Angular Generate Username':function(){return `// @ts-ignore
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-area',
+  template: '' +
+    '<div>' +
+      '<input type="text" value="firstname" id="firstname">' +
+      '<input type="text" value="lastname" id="lastname">' +
+      '<button>Generate</button>' + 
+      '<span id="output">generated username...</span>' +
+    '</div>',
+  styles: []
+})
+
+export class MainAppComponent implements OnInit {
+  // code goes here
+}`},'Angular Button Toggle':function(){return `// @ts-ignore
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-area',
+  template: '<button>ON</button>',
+  styles: []
+})
+
+export class MainAppComponent implements OnInit {
+  // code goes here
+}`},'Angular Phone Book':function(){return `// @ts-ignore
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-area',
+  template: \`
+    <div class="form-wrapper">
+      <form>
+        <div>
+          <label for="firstName">First name</label>
+          <input type="text" name="firstName" id="firstName" class="userFirstname">
+        </div>
+        <div>
+          <label for="lastName">Last name</label>
+          <input type="text" name="lastName" id="lastName" class="userLastname">
+        </div>
+        <div>
+          <label for="phoneNumber">Phone number</label>
+          <input type="tel" name="phoneNumber" id="phoneNumber" class="userPhone">
+        </div>
+        <div>
+          <input type="submit" value="submit" class="submitButton">
+        </div>
+      </form>
+    <div>
+    <div class="informationTable">
+      Table of contacts should go here...
+    </div>\`,
+  styles: []
+})
+
+export class MainAppComponent implements OnInit {
+  // code for phone book goes here...
+}`},'Angular Tic Tac Toe':function(){return `// @ts-ignore
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-area',
+  template: \`
+    <div id="statusArea" className="status">Next player: <span>X</span></div>
+    <div id="winnerArea" className="winner">Winner: <span>None</span></div>
+    <button>Reset</button>
+    <section>
+      <div class="row" *ngFor="let row of [1, 2, 3]">
+        <button *ngFor="let col of [1, 2, 3]" class="square" style="width:40px;height:40px;"></button>
+      </div>
+    </section>
+  \`,
+  styles: []
+})
+
+export class MainAppComponent implements OnInit {
+  // code for tic tac toe game goes here...
+}`},'Vue List Rendering':function(){return `<template>
+  <div id="app">
+    Your list should render here.
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        items: null
+      };
+    }
+  };
+</script>`},'Vue Button Toggle':function(){return `<template>
+  <div id="app">
+    <button>ON</button>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        items: null
+      };
+    }
+  };
+</script>`},'Vue Phone Book':function(){return `<template>
+  <div id="app">
+    <p><strong>Add a new contact:</strong></p>
+    <div>
+      <label>First Name: <input type="text" class="userFirstname" /></label> <br />
+      <label>Last Name: <input type="text" class="userLastname" /></label> <br />
+      <label>Phone: <input type="number" class="userPhone" /></label> <br />
+      <button class="submitButton">Add New Contact</button>
+    </div>
+    <table id="phoneBookItems" class="informationTable">
+      <!-- items should go here -->
+    </table>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        items: [],
+      }
+    },
+  };
+</script>`},'Vue Tic Tac Toe':function(){return `<template>
+  <div id="app">
+    <div class="status">{{ status }}</div>
+    <button>Reset</button>
+    <template v-for="row in 3">
+      <div class="row" :key="row">
+        <button v-for="button in 3" class="square" style="width:40px;height:40px;"></button>
+      </div>
+    </template>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        status: 'Next player: X'
+      };
+    }
+  };
+</script>`},'Vue Generate Username':function(){return `<template>
+  <div id="app">
+    <input type="text" value="firstname" id="firstname">
+    <input type="text" value="lastname" id="lastname">
+    <button>Generate</button>
+    <span id="output">generated username...</span>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        items: null
+      };
+    }
+  };
+</script>`},'Vue Simple Counter':function(){return `<template>
+  <div id="app">
+    <section id="mainArea">
+      <p>button count: <span>0</span></p>
+      <button id="mainButton">Increase</button>
+    </section>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        items: null
+      };
+    }
+  };
+</script>`},}
