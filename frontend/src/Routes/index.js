@@ -25,14 +25,14 @@ const Error500 = loadable(() => import("../Pages/Error/Error500"), {
 export const AllRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate replace={true} to="/public" />} />
+      <Route path="/" element={<Navigate replace={false} to="/public" />} />
       {PublicRoutes()}
       {ProtectedRoutes()}
       <Route path="/403" element={<Error403 />} />
       <Route path="/404" element={<Error404 />} />
       <Route path="/406" element={<Error406 />} />
       <Route path="/500" element={<Error500 />} />
-      <Route path="/*" element={<Navigate to="/404" replace={false} />} />
+      <Route path="/*" element={<Navigate to="/404" replace={true} />} />
     </Routes>
   );
 };

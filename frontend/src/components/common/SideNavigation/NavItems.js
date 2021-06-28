@@ -90,7 +90,7 @@ export const NavItems1 = () => {
             {
               id: 10,
               name: "Innovator",
-              to: "/protected/users/roles/sub/innovator",
+              to: "/protected/users/roles/innovator",
               iconFront: <InboxIcon />,
               hasChildren: false,
               isChild: true,
@@ -98,7 +98,7 @@ export const NavItems1 = () => {
             {
               id: 11,
               name: "Researcher",
-              to: "/protected/users/roles/sub/researcher",
+              to: "/protected/users/roles/researcher",
               iconFront: <InboxIcon />,
               hasChildren: false,
               isChild: true,
@@ -106,7 +106,7 @@ export const NavItems1 = () => {
             {
               id: 12,
               name: "Presenter",
-              to: "/protected/users/roles/sub/presenter",
+              to: "/protected/users/roles/presenter",
               iconFront: <InboxIcon />,
               hasChildren: false,
               isChild: true,
@@ -114,7 +114,7 @@ export const NavItems1 = () => {
             {
               id: 13,
               name: "Attendee",
-              to: "/protected/users/roles/sub/attendee",
+              to: "/protected/users/roles/attendee",
               iconFront: <InboxIcon />,
               hasChildren: false,
               isChild: true,

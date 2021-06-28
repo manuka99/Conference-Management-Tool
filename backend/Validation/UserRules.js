@@ -3,6 +3,20 @@ const { UserEnum } = require("../models/UserModel");
 
 exports.LoginRules = [Validation.email(), Validation.password()];
 
+// for public registration
+exports.PRegistration = [Validation.includes("role", UserEnum.MEMBER.value)];
+
+// for administrators registration (except members)
+exports.ProtectedRegistration = [
+  Validation.includes(
+    "role",
+    UserEnum.ADMIN.value,
+    UserEnum.EDITOR.value,
+    UserEnum.REVIEWER.value
+  ),
+];
+
+// for any user reistration
 exports.URegistrationRules = [
   Validation.text("firstName", 4, 20),
   Validation.text("lastName", 4, 20),

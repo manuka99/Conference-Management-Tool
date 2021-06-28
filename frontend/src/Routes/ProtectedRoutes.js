@@ -4,6 +4,7 @@ import loadable from "@loadable/component";
 import AuthRoute from "../components/protectedRoutes/AuthRoute";
 import GuestRoute from "../components/protectedRoutes/GuestRoute";
 import { ProtectedRoles } from "../common/Roles";
+import UserRoutes from "./Panel/UserRoutes";
 
 // loadable
 const Protected = loadable(() => import("../Pages/Protected/"), {
@@ -22,6 +23,7 @@ export const ProtectedRoutes = () => {
       element={<Protected />}
     >
       <AuthRoute path="/" element={<PanelHome />} />
+      {UserRoutes()}
     </AuthRoute>
   );
 };

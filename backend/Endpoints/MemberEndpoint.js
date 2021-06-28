@@ -7,6 +7,8 @@ const {
 } = require("../Validation/MemberRules");
 const { ValidateRequest } = require("../Middlewares/ValidateRequest");
 const UploadDau = require("../Dao/UploadDau");
+const { RoleAuth } = require("../Middlewares/RoleAuth");
+const { UserEnum } = require("../models/UserModel");
 
 /* Validations */
 const ValidateMemberRegistration = async (req) => {
@@ -29,7 +31,17 @@ exports.MemberRegistration = async (req, res, next) => {
     // validations
     await ValidateMemberRegistration(req);
 
-    const memberData = req.body;
+    const memberData = lodash.pick(req.body, [
+      "firstName",
+      "lastName",
+      "phone",
+      "email",
+      "date_of_birth",
+      "address",
+      "payment",
+      "password",
+      "sub_role",
+    ]);
 
     // register member
     var user = await MemberDao.createNewMember(memberData);
@@ -63,7 +75,7 @@ exports.UpdateMemberProfile = async (req, res, next) => {
       "lastName",
       "phone",
       "email",
-      "date_Of_birth",
+      "date_of_birth",
       "address",
       "payment",
     ]);
@@ -83,4 +95,35 @@ exports.UpdateMemberProfile = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+// Roles of Admin and Reviewer
+exports.MemberApproval = (req, res, next) => {
+  // validate roles
+  var validator = RoleAuth([UserEnum.ADMIN.value, UserEnum.REVIEWER.value]);
+  if (!validator(req, res)) return -1;
+
+  // update
+  const { id } = req.params;
+  const { isApproved, approvalReason } = req.body;
+
+  MemberDao.updateMember(id, {
+    isApproved,
+    approvalReason,
+    approvedBy: req.user._id,
+  })
+    .then((user) => sendSuccess(res, { user }))
+    .catch(next);
+};
+
+// Roles of Admin
+exports.DeleteMember = (req, res, next) => {
+  // validate roles
+  var validator = RoleAuth([UserEnum.ADMIN.value]);
+  if (!validator(req, res)) return -1;
+  // delete
+  const { id } = req.params;
+  MemberDao.deleteMember(id)
+    .then((user) => sendSuccess(res, { user }))
+    .catch(next);
 };

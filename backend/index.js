@@ -29,7 +29,7 @@ const startApp = async () => {
   try {
     // connect with db
     await connect(DB, {
-      useFindAndModify: true,
+      useFindAndModify: false,
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });

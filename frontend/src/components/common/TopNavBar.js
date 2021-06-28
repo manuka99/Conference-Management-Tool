@@ -123,8 +123,8 @@ export default function TopNavBar({ open, handleDrawerOpen }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h5" noWrap>
-            SLIIT Conference Management Tool
+          <Typography className={classes.title} variant="h6" noWrap>
+            <strong> SLIIT Conference Management Tool</strong>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

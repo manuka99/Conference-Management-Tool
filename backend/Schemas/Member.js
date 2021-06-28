@@ -29,6 +29,19 @@ const MemberSchema = new Schema({
     required: false,
     ref: "upload",
   },
+  isApproved: {
+    type: Boolean,
+    default: false,
+  },
+  approvalReason: {
+    type: String,
+    default: false,
+  },
+  approvedBy: {
+    type: Types.ObjectId,
+    required: false,
+    ref: "user",
+  },
 });
 
 const Member = User.discriminator("member", MemberSchema);

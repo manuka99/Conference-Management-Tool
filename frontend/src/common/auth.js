@@ -9,21 +9,15 @@ import {
 
 export function isLoggedIn(roles = null) {
   const state = store.getState().currentUser;
-
   const user = state.user_data;
 
-  let userAuth = false;
-  let userRoleValidated = false;
+  var userAuth = false;
+  var userRoleValidated = false;
 
   if (user && user._id) {
     userAuth = true;
     userRoleValidated = roles ? roleValidated(roles, user.role) : true;
   }
-
-  console.log(userRoleValidated);
-  console.log([roles].includes(user.role));
-  console.log(roles);
-  console.log(user.role);
 
   return { userAuth, userRoleValidated };
 }

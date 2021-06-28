@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "history": "^5.0.0",
     "material-ui-dropzone": "^3.5.0",
+    "moment": "^2.29.1",
     "payhere-js-sdk": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -26,6 +27,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.0.18",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

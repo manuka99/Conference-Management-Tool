@@ -1,7 +1,7 @@
 const { PasswordRecoveryEmail } = require("../services/MailServiceImpl");
 const { PasswordRecoverySMS } = require("../services/SmsServiceImpl");
 const { sendError, sendSuccess } = require("../common/util");
-const { UserEnum } = require("../models/UserModel");
+const { UserEnum, MemberEnum } = require("../models/UserModel");
 const AdminEndpoint = require("./AdminEndpoint");
 const EditorEndpoint = require("./EditorEndpoint");
 const ReviewerEndpoint = require("./ReviewerEndpoint");
@@ -9,6 +9,8 @@ const MemberEndpoint = require("./MemberEndpoint");
 const UserDao = require("../Dao/UserDao");
 const JWTTokenDao = require("../Dao/JWTTokenDao");
 const ValidationError = require("../Common/ValidationError");
+const { RoleAuth } = require("../Middlewares/RoleAuth");
+const MemberDao = require("../Dao/MemberDao");
 
 //to validate token
 exports.GetRequestUser = (req, res, next) => {
@@ -178,5 +180,48 @@ exports.UpdatePassword = async (req, res, next) => {
         token: updatedUser.getSignedJwtToken(),
       });
     })
+    .catch(next);
+};
+
+// Roles of Admin and Reviewer
+exports.GetUsersFromRole = (req, res, next) => {
+  // validate roles
+  var validator = RoleAuth([UserEnum.ADMIN.value, UserEnum.REVIEWER.value]);
+  if (!validator(req, res)) return -1;
+
+  // get role
+  const { role_name } = req.params;
+  // capitalize role
+  const role_uc = role_name.toString().toUpperCase();
+  // get users
+  if (
+    role_uc === UserEnum.ADMIN.value ||
+    role_uc === UserEnum.EDITOR.value ||
+    role_uc === UserEnum.REVIEWER.value
+  ) {
+    UserDao.findUsersByRole(role_uc)
+      .then((users) => sendSuccess(res, users))
+      .catch(next);
+  } else if (
+    role_uc === MemberEnum.RESEARCHER.value ||
+    role_uc === MemberEnum.PRESENTER.value ||
+    role_uc === MemberEnum.ATTENDEE.value ||
+    role_uc === MemberEnum.INNOVATOR.value
+  ) {
+    MemberDao.findMembersBySubRole(role_uc)
+      .then((users) => sendSuccess(res, users))
+      .catch(next);
+  } else throw new ValidationError("Invalid Role assigned!");
+};
+
+// Roles of Admin and Reviewer
+exports.GetUserData = (req, res, next) => {
+  // validate roles
+  var validator = RoleAuth([UserEnum.ADMIN.value, UserEnum.REVIEWER.value]);
+  if (!validator(req, res)) return -1;
+
+  const { id } = req.params;
+  UserDao.findPopulatedUserById(id)
+    .then((user) => sendSuccess(res, { user }))
     .catch(next);
 };

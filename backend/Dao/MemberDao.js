@@ -7,8 +7,16 @@ exports.createNewMember = async (data) => {
 };
 
 exports.updateMember = async (id, data) => {
-  var member = await Member.findByIdAndUpdate(id, data, {
-    useFindAndModify: false,
-  });
+  var member = await Member.findByIdAndUpdate(id, data);
   return member;
+};
+
+exports.deleteMember = async (_id) => {
+  var member = await Member.findOneAndDelete({ _id });
+  return member;
+};
+
+exports.findMembersBySubRole = async (sub_role) => {
+  var members = await Member.find({ sub_role });
+  return members;
 };

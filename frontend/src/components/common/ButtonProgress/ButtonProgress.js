@@ -23,25 +23,19 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function ButtonProgress({
-  loading,
-  handleButtonClick,
-  name,
-  spinColor,
-  ...rest
-}) {
+function ButtonProgress({ loading, name, spinColor, ...rest }) {
   const classes = useStyles();
   return (
     <div
       className={rest.fullWidth ? classes.wrapperFullWidth : classes.wrapper}
     >
-      <Button {...rest} disabled={loading} onClick={handleButtonClick}>
+      <Button {...rest} disabled={loading}>
         {name}
       </Button>
       {loading && (
         <CircularProgress
           size={26}
-          color={spinColor}
+          color={spinColor ? spinColor : rest.color}
           className={classes.buttonProgress}
         />
       )}

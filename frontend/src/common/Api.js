@@ -20,34 +20,25 @@ export default function Api(nonApi = false) {
     (error) => {
       //  const originalRequest = error.config;
       if (error.response) {
-        if (error.response.status === 400) {
-          return Promise.reject(error);
-        } else if (error.response.status === 401) {
+        const { status, data } = error.response;
+        if (data && data.data.msg) swal(data.data.msg);
+        if (status === 400) {
+        } else if (status === 401) {
           store.dispatch(fetch_user_data());
-        } else if (error.response.status === 403) {
+        } else if (status === 403) {
           //no required roles
           swal("403: You do not have permision for the requested content.");
-        } else if (error.response.status === 404) {
-          return Promise.reject(error);
-        } else if (error.response.status === 419) {
+        } else if (status === 404) {
+        } else if (status === 419) {
           swal("Unexpected error 419: Refresh the webpage and try again");
-        } else if (error.response.status === 422) {
+        } else if (status === 422) {
           //errors in form submit
-          return Promise.reject(error);
-        } else if (error.response.status === 423) {
+        } else if (status === 423) {
           //password confirmation
-          return Promise.reject(error);
-        } else if (error.response.status === 500) {
-          if (error.response.data.message) swal(error.response.data.message);
-          else swal(error.message);
-          return Promise.reject(error);
-        } else {
-          swal(error.message);
-          return Promise.reject(error);
-        }
+        } else if (status === 500) swal(error.message);
+        else swal(error.message);
       } else {
         swal(error.message);
-        return Promise.reject(error);
       }
       return Promise.reject(error);
     }
