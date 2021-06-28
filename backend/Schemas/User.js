@@ -9,15 +9,11 @@ const UserSchema = new Schema(
     firstName: {
       type: String,
       required: [true, "First name must not be empty"],
-      minlength: [3, "First name must have at least 3 characters."],
-      maxlength: [12, "First name must not have more than 12 characters."],
     },
 
     lastName: {
       type: String,
       required: [true, "Last name must not be empty."],
-      minlength: [3, "Last name must have at least 3 characters."],
-      maxlength: [12, "Last name must not have more than 12 characters."],
     },
 
     phone: {

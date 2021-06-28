@@ -3,12 +3,20 @@ const path = require("path");
 const ApplicationError = require("../Common/ApplicationError");
 const { v4 } = require("uuid");
 const { PROJECT_DIR } = require("../settings");
+var fs = require("fs");
 
 exports.UploadFile = async (file, category = "temp", user = "public") => {
   var uploadDir = path.join(PROJECT_DIR, "uploads");
 
-  category && path.join(uploadDir, category);
-  user && path.join(uploadDir, user);
+  if (category) {
+    uploadDir = path.join(uploadDir, category);
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+  }
+
+  if (user.toString()) {
+    uploadDir = path.join(uploadDir, user.toString());
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+  }
 
   const file_name = v4().toString().replace(/-/g, "");
   const file_ext = path.extname(file.name).toLowerCase();
@@ -27,6 +35,5 @@ exports.UploadFile = async (file, category = "temp", user = "public") => {
     category,
   });
 
-  console.log(upload);
   return upload;
 };

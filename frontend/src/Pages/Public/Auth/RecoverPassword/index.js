@@ -16,8 +16,6 @@ import HelperTexts from "../../../../components/HelperTexts";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    margin: theme.spacing(8, 2),
-    padding: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -78,9 +76,9 @@ export default function Index() {
   };
 
   return (
-    <Container component="main" style={{ maxWidth: "640px" }}>
+    <Container component="main">
       <CssBaseline />
-      <Paper className={classes.paper}>
+      <div className={classes.paper}>
         <Avatar
           className={classes.avatar}
           style={{ height: "48px", width: "48px" }}
@@ -120,7 +118,7 @@ export default function Index() {
             <Copyright />
           </Box>
         </form>
-      </Paper>
+      </div>
     </Container>
   );
 }

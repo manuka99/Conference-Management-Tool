@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-
 import { Link as Link_NAV } from "react-router-dom";
 
 export default function RegisterFooter() {

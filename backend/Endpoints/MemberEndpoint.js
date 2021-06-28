@@ -31,14 +31,20 @@ exports.MemberRegistration = async (req, res, next) => {
 
     const memberData = req.body;
 
+    // register member
+    var user = await MemberDao.createNewMember(memberData);
+
     // upload file if present
     if (req.files && req.files.file) {
-      const upload = await UploadDau.UploadFile(req.files.file);
-      memberData.file = upload._id;
+      const upload = await UploadDau.UploadFile(
+        req.files.file,
+        "innovations",
+        user._id
+      );
+      // update user
+      user = await MemberDao.updateMember(user._id, { file: upload._id });
     }
 
-    // register member
-    const user = await MemberDao.createNewMember(memberData);
     sendSuccess(res, { user, token: user.getSignedJwtToken() });
   } catch (error) {
     next(error);
@@ -64,7 +70,11 @@ exports.UpdateMemberProfile = async (req, res, next) => {
 
     // upload file if present
     if (req.files && req.files.file) {
-      const upload = await UploadDau.UploadFile(req.files.file);
+      const upload = await UploadDau.UploadFile(
+        req.files.file,
+        "innovations",
+        req.user._id
+      );
       updatingMemberData.file = upload._id;
     }
 

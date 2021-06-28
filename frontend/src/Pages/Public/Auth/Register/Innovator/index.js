@@ -13,7 +13,6 @@ import Typography from "@material-ui/core/Typography";
 import UserForm from "../User";
 import InnovatorForm from "./InnovatorForm";
 import InnovatorPayment from "./InnovatorPayment";
-import InnovatorReview from "./InnovatorReview";
 import swal from "sweetalert";
 import Api from "../../../../../common/Api";
 import { authenticate } from "../../../../../common/auth";
@@ -27,23 +26,9 @@ const useStyles = makeStyles((theme) => ({
   },
   layout: {
     width: "auto",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
   },
   paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
+    padding: theme.spacing(2, 4, 0),
   },
   stepper: {
     padding: theme.spacing(3, 0, 5),
@@ -58,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Profile", "Additional", "Payment", "Review"];
+const steps = ["Profile", "Additional", "Payment"];
 
 export default function Index() {
   const classes = useStyles();
@@ -99,7 +84,9 @@ export default function Index() {
       })
       .then((res) => {
         const { user, token } = res.data.data;
-        // authenticate(user, token);
+        setTimeout(() => {
+          authenticate(user, token);
+        }, 5000);
         setActiveStep(activeStep + 1);
       })
       .catch(
@@ -148,8 +135,6 @@ export default function Index() {
             errors={errors}
           />
         );
-      case 3:
-        return <InnovatorReview registerInfo={registerInfo} />;
       default:
         throw new Error("Unknown step");
     }
@@ -158,7 +143,7 @@ export default function Index() {
   return (
     <React.Fragment>
       <main className={classes.layout}>
-        <Paper className={classes.paper}>
+        <div className={classes.paper}>
           <Typography variant="h5" align="center">
             <b>Register as an Innovator</b>
           </Typography>
@@ -195,7 +180,7 @@ export default function Index() {
               </React.Fragment>
             )}
           </React.Fragment>
-        </Paper>
+        </div>
       </main>
     </React.Fragment>
   );

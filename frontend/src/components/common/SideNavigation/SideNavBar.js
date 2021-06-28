@@ -10,7 +10,7 @@ import {
   ChevronRightIcon,
   MainDashStyles,
   Typography,
-} from "../../../assets/StyleImports";
+} from "../assets/StyleImports";
 import SideNavItems from "./SideNavItems";
 import { NavItems1, NavItems2 } from "./NavItems";
 import Paper from "@material-ui/core/Paper";
@@ -47,15 +47,13 @@ function SideNavBar({ open, handleDrawerOpen, handleDrawerClose }) {
             <Avatar
               alt="Person"
               className={classes.avatar}
-              src="/images/user-avatar.png"
+              src="/static/images/user-avatar.png"
             />
             <Typography variant="h6" className={classes.name}>
-              {user_data.user.fname} {user_data.user.lname}
+              {user_data.firstName} {user_data.lastName}
             </Typography>
             <Typography variant="body2" className={classes.name}>
-              {user_data.roles.length > 0
-                ? user_data.roles.map((role) => role.name)
-                : "Guest mode"}
+              {user_data.role}
             </Typography>
           </div>
           <IconButton

@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-} from "../../../assets/StyleImports";
+} from "../assets/StyleImports";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -27,7 +27,7 @@ function SideNavItem({ navItem, ids, handleNestedChildren, spacing, ...rest }) {
         fontSize: "15px",
       },
       selectedItem: {
-        borderLeft: `4px solid ${theme.palette.neutral.reverse}`,
+        borderLeft: `4px solid #ffffff`,
         paddingLeft: theme.spacing(spacing - 0.6),
         color: "white",
         fontWeight: "bold",

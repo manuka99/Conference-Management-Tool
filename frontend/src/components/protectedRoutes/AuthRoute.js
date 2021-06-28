@@ -5,7 +5,7 @@ function AuthRoute({ path, hasAnyRoles, ...rest }) {
   const { userAuth, userRoleValidated } = isLoggedIn(hasAnyRoles);
 
   return !userAuth ? (
-    <Navigate to="/login" replace={true} />
+    <Navigate to="/public/auth/login" replace={true} />
   ) : !userRoleValidated ? (
     <Navigate to="/403" replace={false} />
   ) : (

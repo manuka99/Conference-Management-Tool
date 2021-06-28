@@ -19,7 +19,11 @@ import Error from "../../../../components/alerts/Error";
 import HelperTexts from "../../../../components/HelperTexts";
 import Innovator from "./Innovator";
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: theme.spacing(1, 0),
+  },
+}));
 
 export default function Index() {
   const classes = useStyles();
@@ -40,12 +44,12 @@ export default function Index() {
   };
 
   return (
-    <Container component="main" maxWidth="sm" className={classes.container}>
+    <Container component="main" maxWidth="md" className={classes.container}>
       <CssBaseline />
       {getFormContent() ? (
         <>{getFormContent()}</>
       ) : (
-        <Grid container spacing={1}>
+        <Grid container maxWidth="md" spacing={1}>
           <Grid item xs={6}>
             <Box mt={2}>
               <FormControl fullWidth variant="outlined">
