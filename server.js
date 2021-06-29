@@ -8,6 +8,7 @@ const { AppRoutes } = require("./routes");
 const { AppMiddlewares } = require("./middlewares");
 const { HandleError } = require("./middlewares/HandleError");
 const fileUpload = require("express-fileupload");
+const path = require("path");
 
 // init the app
 const app = express();
@@ -23,8 +24,6 @@ AppMiddlewares(app);
 /* ROUTES */
 AppRoutes(app);
 
-express;
-
 const startApp = async () => {
   try {
     // connect with db
@@ -33,8 +32,17 @@ const startApp = async () => {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
-
     console.log("Connected to database");
+
+    // serve static assests
+    if (process.env.NODE_ENV === "production") {
+      app.use(express.static("Frontend/build"));
+      app.get("*", (req, res) => {
+        res.sendFile(
+          path.resolve(__dirname, "Frontend", "build", "index.html")
+        );
+      });
+    }
 
     // start server listening
     await app.listen(PORT, () => console.log(`App is running on port ${PORT}`));
