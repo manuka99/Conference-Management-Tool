@@ -5,6 +5,7 @@ const { UserEnum } = require("../Models/UserModel");
 // file can be viewed by its author or admin or reviewer
 exports.FileAccess = (req, res, next) => {
   const { name } = req.params;
+  console.log(req.user);
   try {
     const upload = FindFileByName(name);
     if (upload.user !== "public") {

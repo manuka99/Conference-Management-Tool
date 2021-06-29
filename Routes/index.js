@@ -5,6 +5,7 @@ const { MemberRoutes } = require("./MemberRoutes");
 const { SessionRoutes } = require("./SessionRoutes");
 const UploadEndpoint = require("../Endpoints/UploadEndpoint");
 const { FileAccess } = require("../Middlewares/FileAccess");
+const { TokenValidator } = require("../Middlewares/TokenValidator");
 
 exports.AppRoutes = (app) => {
   // Authentication Routes
@@ -19,7 +20,7 @@ exports.AppRoutes = (app) => {
   /* Panel Routes */
   PanelUserRoutes(app);
 
-  app.head("/api/public/files/:name", UploadEndpoint.GetFile);
+  app.get("/api/public/files/:name", UploadEndpoint.GetFile);
 
   // Invalid Routes
   // app.use("*", (req, res) => sendError(res, "Resource not found!"));
