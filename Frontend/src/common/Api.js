@@ -2,12 +2,12 @@ import axios from "axios";
 import store from "../Redux/store";
 import { fetch_user_data } from "../Redux";
 import swal from "sweetalert";
-import { APP_USER_TOKEN } from "./AppConstants";
+import { APP_BASE_URL, APP_USER_TOKEN } from "./AppConstants";
 
 export default function Api(nonApi = false) {
   let user_token = localStorage.getItem(APP_USER_TOKEN);
   const Api = axios.create({
-    baseURL: `http://localhost:5000${nonApi ? "" : "/api"}`,
+    baseURL: `${APP_BASE_URL}${nonApi ? "" : "/api"}`,
     timeout: 5000,
     headers: {
       Authorization: `Bearer ${user_token}`,
