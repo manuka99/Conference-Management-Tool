@@ -16,12 +16,17 @@ const Landing = loadable(() => import("../Pages/Public/Landing/"), {
   fallback: <ProgressBar />,
 });
 
+const FileViewer = loadable(() => import("../Pages/Public/FileViewer"), {
+  fallback: <ProgressBar />,
+});
+
 export const PublicRoutes = () => {
   return (
     <Route path="/public" element={<Public />}>
       <Route path="/" element={<Landing />} />
       {AuthRoutes()}
       {PaymentRoutes()}
+      <Route path="/file/view/:name" element={<FileViewer />} />
     </Route>
   );
 };

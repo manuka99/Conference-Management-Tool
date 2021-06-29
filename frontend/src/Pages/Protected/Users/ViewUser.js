@@ -207,6 +207,75 @@ export default function ViewUser() {
                   <br />
                 </div>
               </Grid>
+              {userInfo.file && (
+                <>
+                  <Grid item xs={3}>
+                    <Typography
+                      variant="body2"
+                      style={{ marginTop: "20px", fontSize: "20px" }}
+                      gutterBottom
+                    >
+                      <b>Submission details</b>
+                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gridGap: "10px",
+                        marginTop: "20px",
+                      }}
+                    >
+                      <b>File name</b>: {userInfo.file.submit_name} <br />
+                      <b>File size</b>: {userInfo.file.size} <br />
+                      <b>File type</b>: {userInfo.file.type} <br />
+                      <b>File path</b>{" "}
+                      <div>
+                        :{" "}
+                        <a
+                          href={`/public/file/view/${userInfo.file.name}`}
+                          target="_blank"
+                        >
+                          Click here to open
+                        </a>{" "}
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography
+                      variant="body2"
+                      style={{ marginTop: "20px", fontSize: "20px" }}
+                      gutterBottom
+                    >
+                      <b>Additional details</b>
+                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gridGap: "10px",
+                        marginTop: "20px",
+                      }}
+                    >
+                      <b>
+                        File created on (
+                        {moment(
+                          new Date(userInfo.file.createdAt).valueOf()
+                        ).fromNow()}{" "}
+                        )
+                      </b>
+                      : {userInfo.file.createdAt} <br />
+                      <b>
+                        Last update on (
+                        {moment(
+                          new Date(userInfo.file.updatedAt).valueOf()
+                        ).fromNow()}{" "}
+                        )
+                      </b>
+                      : {userInfo.file.updatedAt} <br />
+                    </div>
+                  </Grid>
+                </>
+              )}
             </Grid>
           </>
         )}

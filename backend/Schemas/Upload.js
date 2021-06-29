@@ -4,7 +4,15 @@ const { Schema, model } = require("mongoose");
 
 const UploadSchema = new Schema(
   {
+    submit_name: {
+      type: Schema.Types.String,
+      required: true,
+    },
     name: {
+      type: Schema.Types.String,
+      required: true,
+    },
+    user: {
       type: Schema.Types.String,
       required: true,
     },

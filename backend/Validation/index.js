@@ -87,7 +87,13 @@ exports.Validation = {
       .withMessage(`This value is not a valid date`),
 
   file: (feild = "file") =>
-    check(feild).custom(ValidateFile).withMessage("Submission is required"),
+    check(feild)
+      .custom(ValidateFile)
+      .withMessage("Submission is required.")
+      .custom(ValidateFileType)
+      .withMessage("Submission must be in pdf format")
+      .custom(ValidateFileSize)
+      .withMessage("Submission size must be less than 25mb"),
 };
 
 const ValidateObjectId = (key) =>
@@ -109,6 +115,16 @@ const ValidateUserEmail = async (email, { req }) => {
 const ValidateConfirmPassword = (value, { req }) => value == req.body.password;
 
 const ValidateFile = (value, { req }) => {
-  if (req.files && req.files.file) return true;
-  return false;
+  return req.files && req.files.file;
+};
+
+const ValidateFileType = (value, { req }) => {
+  return (
+    ValidateFile(value, { req }) &&
+    req.files.file.mimetype === "application/pdf"
+  );
+};
+
+const ValidateFileSize = (value, { req }) => {
+  return ValidateFileType(value, { req }) && req.files.file.size < 26000000;
 };

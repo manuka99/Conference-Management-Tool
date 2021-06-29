@@ -28,12 +28,19 @@ exports.UploadFile = async (file, category = "temp", user = "public") => {
 
   // save in DB
   const upload = await Upload.create({
+    submit_name: file.name,
     name: file_name,
     path: file_path,
+    user,
     type: file.mimetype,
     size: file.size,
     category,
   });
 
+  return upload;
+};
+
+exports.FindFileByName = async (name) => {
+  const upload = await Upload.findOne({ name });
   return upload;
 };
