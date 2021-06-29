@@ -8,7 +8,7 @@ const {
 const { ValidateRequest } = require("../Middlewares/ValidateRequest");
 const UploadDau = require("../Dao/UploadDau");
 const { RoleAuth } = require("../Middlewares/RoleAuth");
-const { UserEnum } = require("../models/UserModel");
+const { UserEnum } = require("../Models/UserModel");
 
 /* Validations */
 const ValidateMemberRegistration = async (req) => {
