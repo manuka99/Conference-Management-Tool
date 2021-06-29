@@ -3,7 +3,8 @@ require("dotenv").config();
 module.exports = {
   AUTH_SECRET: process.env.AUTH_SECRET,
   AUTH_EXPIRE: process.env.AUTH_EXPIRE,
-  DB: process.env.APP_DB,
+  LOCAL_DB: process.env.LOCAL_DB,
+  ATLAS_DB: process.env.ATLAS_DB,
   APP_PORT: process.env.APP_PORT,
   MAIL_USER: process.env.MAIL_USER,
   MAIL_PASSWORD: process.env.MAIL_PASSWORD,

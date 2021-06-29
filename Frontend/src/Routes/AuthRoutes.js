@@ -1,8 +1,7 @@
 import React from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import ProgressBar from "react-topbar-progress-indicator";
 import loadable from "@loadable/component";
-import AuthRoute from "../components/protectedRoutes/AuthRoute";
 import GuestRoute from "../components/protectedRoutes/GuestRoute";
 
 const Auth = loadable(() => import("../Pages/Public/Auth/index"), {

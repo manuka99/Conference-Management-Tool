@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetch_user_data, init_request_path } from "./Redux";
+import { fetch_user_data } from "./Redux";
 import { connect } from "react-redux";
 import "./App.css";
 import { AllRoutes } from "./Routes";
@@ -48,7 +48,6 @@ const mapStateToProps = (state) => {
   return {
     loading: state.currentUser.loading,
     login: state.currentUser.login,
-    logout: state.currentUser.logout,
     logout: state.currentUser.logout,
     init_request_path: state.currentUser.init_request_path,
   };

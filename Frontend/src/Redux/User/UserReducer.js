@@ -1,4 +1,3 @@
-import { init_request_path } from "./UserActions";
 import {
   FETCH_USER_SUCCESS,
   FETCH_USER_ERROR,

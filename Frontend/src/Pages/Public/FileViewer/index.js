@@ -5,7 +5,7 @@ import { APP_BASE_URL } from "../../../common/AppConstants";
 
 export default function Index() {
   const { name } = useParams();
-  const uri = APP_BASE_URL + "" + "/api/public/files/" + name;
+  const uri = `${APP_BASE_URL}/api/public/files/${name}`;
 
   return (
     <>

@@ -10,7 +10,6 @@ import Api from "../../../../common/Api";
 import Error from "../../../../components/alerts/Error";
 import ButtonProgress from "../../../../components/common/ButtonProgress/ButtonProgress";
 import swal from "sweetalert";
-import Paper from "@material-ui/core/Paper";
 import Copyright from "../../../../components/Copyright";
 import HelperTexts from "../../../../components/HelperTexts";
 

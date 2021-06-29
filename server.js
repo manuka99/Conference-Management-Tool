@@ -2,7 +2,7 @@ const cors = require("cors");
 const body_parser = require("body-parser");
 const express = require("express");
 const { connect } = require("mongoose");
-const { DB, APP_PORT } = require("./config");
+const { LOCAL_DB, ATLAS_DB, APP_PORT } = require("./config");
 var useragent = require("express-useragent");
 const { AppRoutes } = require("./routes");
 const { AppMiddlewares } = require("./middlewares");
@@ -10,6 +10,7 @@ const { HandleError } = require("./middlewares/HandleError");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const PORT = process.env.PORT || APP_PORT;
+const DB = process.env.NODE_ENV === "production" ? ATLAS_DB : LOCAL_DB;
 
 // init the app
 const app = express();

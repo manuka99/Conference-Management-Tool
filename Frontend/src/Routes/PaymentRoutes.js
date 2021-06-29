@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Route } from "react-router-dom";
 import ProgressBar from "react-topbar-progress-indicator";
 import loadable from "@loadable/component";
 

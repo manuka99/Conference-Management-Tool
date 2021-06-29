@@ -7,7 +7,6 @@ import {
   INIT_REQUEST_PATH,
 } from "./UserActionTypes";
 import api from "../../common/Api";
-import { authenticate } from "../../common/auth";
 
 export const fetch_user_data_success = (userData) => {
   return {

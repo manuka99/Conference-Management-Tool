@@ -1,15 +1,5 @@
 import { InboxIcon } from "../assets/StyleImports";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import LocalDiningIcon from "@material-ui/icons/LocalDining";
-import ListIcon from "@material-ui/icons/List";
-import CreateIcon from "@material-ui/icons/Create";
-import AcUnitIcon from "@material-ui/icons/AcUnit";
-import ExtensionIcon from "@material-ui/icons/Extension";
-// shipping
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import StoreMallDirectoryIcon from "@material-ui/icons/StoreMallDirectory";
-import ClassIcon from "@material-ui/icons/Class";
-import RoomIcon from "@material-ui/icons/Room";
 
 export const NavItems1 = () => {
   return [

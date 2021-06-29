@@ -41,6 +41,7 @@ function ViewUsers() {
 
   useEffect(() => {
     getUserData();
+    // eslint-disable-next-line
   }, []);
 
   const getUserData = () => {
