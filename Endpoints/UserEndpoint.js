@@ -1,6 +1,6 @@
 const { PasswordRecoveryEmail } = require("../Services/MailServiceImpl");
 const { PasswordRecoverySMS } = require("../Services/SmsServiceImpl");
-const { sendError, sendSuccess } = require("../cCmmon/util");
+const { sendError, sendSuccess } = require("../Common/util");
 const { UserEnum, MemberEnum } = require("../Models/UserModel");
 const AdminEndpoint = require("./AdminEndpoint");
 const EditorEndpoint = require("./EditorEndpoint");
