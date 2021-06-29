@@ -65,7 +65,7 @@ export default function Index() {
   const resetPassword = () => {
     setErrors({});
     Api()
-      .post(`/public/reset-password`, resetInfo)
+      .patch(`/public/reset-password`, resetInfo)
       .then((res) => {
         const { user, token } = res.data.data;
         authenticate(user, token);

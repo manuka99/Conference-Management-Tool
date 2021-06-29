@@ -29,7 +29,7 @@ exports.UserRoutes = (app) => {
     ValidateRequest,
     UserEndpoint.RecoverPassword
   );
-  app.post(
+  app.patch(
     "/api/public/reset-password",
     ResetPasswordRules,
     ValidateRequest,

@@ -129,9 +129,7 @@ export default function Index({ registerInfo, handleForm, errors }) {
             required
             fullWidth
             value={registerInfo.date_of_birth}
-            InputLabelProps={{
-              shrink: registerInfo.date_of_birth ? true : false,
-            }}
+            InputLabelProps={{ shrink: true }}
             id="date_of_birth"
             label="Date of birth"
             name="date_of_birth"
