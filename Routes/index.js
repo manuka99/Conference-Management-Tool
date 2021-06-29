@@ -19,7 +19,7 @@ exports.AppRoutes = (app) => {
   /* Panel Routes */
   PanelUserRoutes(app);
 
-  app.get("/api/public/files/:name", FileAccess, UploadEndpoint.GetFile);
+  app.get("/api/public/files/:name", UploadEndpoint.GetFile);
 
   // Invalid Routes
   // app.use("*", (req, res) => sendError(res, "Resource not found!"));

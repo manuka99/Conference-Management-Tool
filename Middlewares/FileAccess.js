@@ -3,16 +3,17 @@ const { FindFileByName } = require("../Dao/UploadDau");
 const { UserEnum } = require("../Models/UserModel");
 
 // file can be viewed by its author or admin or reviewer
-exports.FileAccess = async (req, res, next) => {
+exports.FileAccess = (req, res, next) => {
   const { name } = req.params;
   try {
-    const upload = await FindFileByName(name);
+    const upload = FindFileByName(name);
     if (upload.user !== "public") {
       if (
         req.user &&
         (req.user._id.toString() === upload.user ||
-          req.user.role === UserEnum.ADMIN.value ||
-          req.user.role === UserEnum.REVIEWER.value)
+          [UserEnum.ADMIN.value, UserEnum.REVIEWER.value].includes(
+            req.user.role
+          ))
       )
         return next();
       return sendError(
