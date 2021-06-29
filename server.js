@@ -39,7 +39,7 @@ const startApp = async () => {
       app.use(express.static("Frontend/build"));
       app.get("*", (req, res) => {
         res.sendFile(
-          path.resolve(__dirname, "Frontend", "build", "index.html")
+          path.resolve(__dirname, `Frontend`, `build`, `index.html`)
         );
       });
     }

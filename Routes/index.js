@@ -21,5 +21,5 @@ exports.AppRoutes = (app) => {
   app.get("/api/public/files/:name", UploadEndpoint.GetFile);
 
   // Invalid Routes
-  app.use("*", (req, res) => sendError(res, "Resource not found!"));
+  // app.use("*", (req, res) => sendError(res, "Resource not found!"));
 };
