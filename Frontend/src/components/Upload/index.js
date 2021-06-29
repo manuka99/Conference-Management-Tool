@@ -52,11 +52,7 @@ export default function Index({ file, handleFileChange }) {
   return (
     <DropzoneArea
       initialFiles={[file]}
-      acceptedFiles={[
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      ]}
+      acceptedFiles={["application/pdf"]}
       dropzoneText={"Drag and drop or click to select file."}
       onChange={handleFileChange}
       classes={{
