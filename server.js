@@ -2,13 +2,14 @@ const cors = require("cors");
 const body_parser = require("body-parser");
 const express = require("express");
 const { connect } = require("mongoose");
-const { DB, PORT } = require("./config");
+const { DB, APP_PORT } = require("./config");
 var useragent = require("express-useragent");
 const { AppRoutes } = require("./routes");
 const { AppMiddlewares } = require("./middlewares");
 const { HandleError } = require("./middlewares/HandleError");
 const fileUpload = require("express-fileupload");
 const path = require("path");
+const PORT = process.env.PORT || APP_PORT;
 
 // init the app
 const app = express();
