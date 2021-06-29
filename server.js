@@ -29,11 +29,11 @@ AppRoutes(app);
 const startApp = async () => {
   try {
     // connect with db
-    // await connect(DB, {
-    //   useFindAndModify: false,
-    //   useUnifiedTopology: true,
-    //   useNewUrlParser: true,
-    // });
+    await connect(DB, {
+      useFindAndModify: false,
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
     console.log("Connected to database");
 
     // serve static assests
