@@ -1,4 +1,4 @@
-const { UserEnum } = require("../models/UserModel");
+const { UserEnum } = require("../Models/UserModel");
 const { Authenticate } = require("./Authenticate");
 const { GuestUser } = require("./GuestUser");
 const { RoleAuth } = require("./RoleAuth");

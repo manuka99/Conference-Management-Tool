@@ -1,4 +1,4 @@
-const { sendSuccess } = require("../common/util");
+const { sendSuccess } = require("../Common/util");
 const JWTTokenDao = require("../Dao/JWTTokenDao");
 
 exports.getUserSessions = async (req, res, next) => {

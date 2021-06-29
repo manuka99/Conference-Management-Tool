@@ -1,7 +1,7 @@
 var jwt = require("jsonwebtoken");
 const UserDao = require("../Dao/UserDao");
 const JWTTokenDao = require("../Dao/JWTTokenDao");
-const { AUTH_SECRET } = require("../config/index");
+const { AUTH_SECRET } = require("../Config/index");
 var getIP = require("ipware")().get_ip;
 const consola = require("consola");
 

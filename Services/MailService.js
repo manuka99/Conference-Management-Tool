@@ -1,5 +1,5 @@
 var nodemailer = require("nodemailer");
-var { MAIL_USER, MAIL_PASSWORD } = require("../config");
+var { MAIL_USER, MAIL_PASSWORD } = require("../Config");
 var fs = require("fs");
 
 // send a mail using gmail

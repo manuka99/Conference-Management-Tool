@@ -1,5 +1,5 @@
 const { Validation } = require(".");
-const { UserEnum } = require("../models/UserModel");
+const { UserEnum } = require("../Models/UserModel");
 
 exports.LoginRules = [Validation.email(), Validation.password()];
 

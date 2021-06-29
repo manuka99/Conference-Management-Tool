@@ -1,4 +1,4 @@
-const { sendError } = require("../common/util");
+const { sendError } = require("../Common/util");
 const { UserRoutes } = require("./UserRoutes");
 const { PanelUserRoutes } = require("./Panel/UserRoutes");
 const { MemberRoutes } = require("./MemberRoutes");

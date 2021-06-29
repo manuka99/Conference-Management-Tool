@@ -1,4 +1,4 @@
-const { sendSuccess } = require("../common/util");
+const { sendSuccess } = require("../Common/util");
 const AdminDao = require("../Dao/AdminDao");
 const lodash = require("lodash");
 const { ValidateRequest } = require("../Middlewares/ValidateRequest");

@@ -1,5 +1,5 @@
 const { Validation } = require(".");
-const { MemberEnum } = require("../models/UserModel");
+const { MemberEnum } = require("../Models/UserModel");
 const { URegistrationRules, UserProfileUpdateRules } = require("./UserRules");
 
 // member registration rules

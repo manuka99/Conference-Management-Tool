@@ -1,4 +1,4 @@
-const { sendError } = require("../common/util");
+const { sendError } = require("../Common/util");
 
 exports.GuestUser = (req, res, next) => {
   if (req.user)

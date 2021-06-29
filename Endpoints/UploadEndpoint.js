@@ -1,4 +1,4 @@
-const { sendSuccess } = require("../common/util");
+const { sendSuccess } = require("../Common/util");
 const UploadDau = require("../Dao/UploadDau");
 
 exports.GetFile = (req, res, next) => {

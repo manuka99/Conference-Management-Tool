@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { AUTH_SECRET, AUTH_EXPIRE } = require("../config");
+const { AUTH_SECRET, AUTH_EXPIRE } = require("../Config");
 
 const UserSchema = new Schema(
   {

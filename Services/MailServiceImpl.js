@@ -1,4 +1,4 @@
-const { MAIL_USER, CLIENT_BASE } = require("../config");
+const { MAIL_USER, CLIENT_BASE } = require("../Config");
 const { sendMail } = require("./MailService");
 
 // send recovery password email

@@ -1,4 +1,4 @@
-const { sendSuccess } = require("../common/util");
+const { sendSuccess } = require("../Common/util");
 const EditorDao = require("../Dao/EditorDao");
 const lodash = require("lodash");
 const { ValidateRequest } = require("../Middlewares/ValidateRequest");

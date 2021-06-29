@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { sendError, FormatValidationError } = require("../common/util");
+const { sendError, FormatValidationError } = require("../Common/util");
 const ValidationError = require("../Common/ValidationError");
 const ApplicationError = require("../Common/ApplicationError");
 const AccessForbiddenError = require("../Common/AccessForbiddenError");

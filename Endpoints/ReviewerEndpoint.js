@@ -1,4 +1,4 @@
-const { sendSuccess } = require("../common/util");
+const { sendSuccess } = require("../Common/util");
 const ReviewerDao = require("../Dao/ReviewerDao");
 const lodash = require("lodash");
 const {

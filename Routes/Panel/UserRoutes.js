@@ -1,5 +1,5 @@
-const UserEndpoint = require("../../endpoints/UserEndpoint");
-const MemberEndpoint = require("../../endpoints/MemberEndpoint");
+const UserEndpoint = require("../../Endpoints/UserEndpoint");
+const MemberEndpoint = require("../../Endpoints/MemberEndpoint");
 const { ProtectedRegistration } = require("../../Validation/UserRules");
 const { ValidateRequest } = require("../../Middlewares/ValidateRequest");
 

@@ -1,4 +1,4 @@
-const UserEndpoint = require("../endpoints/UserEndpoint");
+const UserEndpoint = require("../Endpoints/UserEndpoint");
 const {
   LoginRules,
   RecoverPasswordRules,
