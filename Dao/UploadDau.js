@@ -8,6 +8,10 @@ var fs = require("fs");
 exports.UploadFile = async (file, category = "temp", user = "public") => {
   var uploadDir = path.join(PROJECT_DIR, "uploads");
 
+  if (uploadDir) {
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+  }
+
   if (category) {
     uploadDir = path.join(uploadDir, category);
     if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);

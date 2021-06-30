@@ -13,6 +13,7 @@ import Success from "./Success";
 import Error from "../../../../../components/alerts/Error";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ButtonProgress from "../../../../../components/common/ButtonProgress/ButtonProgress";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -44,6 +45,7 @@ export default function Index() {
   const classes = useStyles();
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [loadingBtn, setLoadingBtn] = React.useState(false);
 
   const [registerInfo, setRegisterInfo] = useState({
     role: "MEMBER",
@@ -62,6 +64,7 @@ export default function Index() {
 
   const registerSubmit = () => {
     setErrors({});
+    setLoadingBtn(true);
     Api()
       .post("/public/register", registerInfo)
       .then((res) => {
@@ -79,7 +82,8 @@ export default function Index() {
             msg: err.response.data.data.msg,
             ...err.response.data.data.params,
           })
-      );
+      )
+      .finally(() => setLoadingBtn(false));
   };
 
   const handleNext = () => {
@@ -151,14 +155,25 @@ export default function Index() {
                       Back
                     </Button>
                   )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? "Register now" : "Next"}
-                  </Button>
+                  {activeStep === steps.length - 1 ? (
+                    <ButtonProgress
+                      variant="contained"
+                      color="primary"
+                      name="Register now"
+                      onClick={handleNext}
+                      loading={loadingBtn}
+                      className={classes.button}
+                    />
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      Next
+                    </Button>
+                  )}
                 </div>
               </React.Fragment>
             )}

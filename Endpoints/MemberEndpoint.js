@@ -57,13 +57,15 @@ exports.MemberRegistration = async (req, res, next) => {
 
     // upload file if present
     if (req.files && req.files.file) {
-      const upload = await UploadDau.UploadFile(
+      UploadDau.UploadFile(
         req.files.file,
-        "innovations",
+        memberData.sub_role.toLowerCase(),
         user._id
-      );
-      // update user
-      user = await MemberDao.updateMember(user._id, { file: upload._id });
+      )
+        .then((upload) =>
+          MemberDao.updateMember(user._id, { file: upload._id })
+        )
+        .catch(next);
     }
     // send app notification
     NotifyProfileRegistered(user);
@@ -96,7 +98,7 @@ exports.UpdateMemberProfile = async (req, res, next) => {
     if (req.files && req.files.file) {
       const upload = await UploadDau.UploadFile(
         req.files.file,
-        "innovations",
+        req.user.sub_role.toLowerCase(),
         req.user._id
       );
       updatingMemberData.file = upload._id;

@@ -1,11 +1,12 @@
 var nodemailer = require("nodemailer");
-var { MAIL_USER, MAIL_PASSWORD } = require("../Config");
+var { MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASSWORD } = require("../Config");
 var fs = require("fs");
 
 // send a mail using gmail
 exports.sendMail = (mailOptions) => {
   var transporter = nodemailer.createTransport({
-    service: "gmail",
+	host: MAIL_HOST,
+	port: MAIL_PORT,
     auth: {
       user: MAIL_USER,
       pass: MAIL_PASSWORD,

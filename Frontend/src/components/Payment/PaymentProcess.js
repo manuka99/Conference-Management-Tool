@@ -5,6 +5,7 @@ import {
   CheckoutParams,
 } from "payhere-js-sdk";
 import swal from "sweetalert";
+import { APP_URL } from "../../Config";
 
 function onPayhereCheckoutError(errorMsg) {
   alert(errorMsg);
@@ -36,9 +37,9 @@ export function PaymentProcess(data) {
   });
 
   const checkoutData = new CheckoutParams({
-    returnUrl: "http://localhost:3000/",
-    cancelUrl: "http://localhost:3000/",
-    notifyUrl: "http://localhost:5000/public/payment/notify",
+    returnUrl: `${APP_URL}/public/payment`,
+    cancelUrl: `${APP_URL}/public/payment`,
+    notifyUrl: `${APP_URL}/api/public/payment/notify`,
     order_id: "112233",
     itemTitle,
     currency: CurrencyType.LKR,
