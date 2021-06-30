@@ -39,7 +39,7 @@ exports.UserRoutes = (app) => {
   /* Authenticated Routes */
   app.patch("/api/auth/profile", UserEndpoint.UpdateUserProfile);
   app.get("/api/auth/profile", UserEndpoint.GetUserProfile);
-  app.post("/api/auth/logout", UserEndpoint.Logout);
+  app.post("/api/public/logout", UserEndpoint.Logout);
   app.patch(
     "/api/auth/security",
     UpdatePasswordRules,

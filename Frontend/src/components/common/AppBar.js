@@ -14,6 +14,10 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import { useNavigate } from "react-router-dom";
+import store from "../../Redux/store";
+import { LogOut } from "../../common/auth";
+import Api from "../../common/Api";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -81,11 +85,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const state = store.getState().currentUser;
+  const user = state.user_data;
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const HandleLogOut = () => {
+    Api()
+      .post("/public/auth/logout")
+      .then((res) => LogOut())
+      .catch((e) => LogOut());
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -115,8 +129,28 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {user && user._id ? (
+        <>
+          <MenuItem onClick={handleMenuClose}>
+            {user.firstName + " " + user.lastName}
+          </MenuItem>
+          {user.role !== "MEMBER" && (
+            <MenuItem onClick={() => navigate("/protected/")}>
+              Administration
+            </MenuItem>
+          )}
+          <MenuItem onClick={HandleLogOut}>Logout</MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem onClick={() => navigate("/public/auth/login")}>
+            Login
+          </MenuItem>
+          <MenuItem onClick={() => navigate("/public/auth/register")}>
+            Register
+          </MenuItem>
+        </>
+      )}
     </Menu>
   );
 
@@ -156,7 +190,7 @@ export default function PrimarySearchAppBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Member Area</p>
       </MenuItem>
     </Menu>
   );

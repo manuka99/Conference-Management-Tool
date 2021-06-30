@@ -1,5 +1,4 @@
 import React from "react";
-import { LogOut } from "../../common/auth";
 import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,11 +15,18 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import { useNavigate } from "react-router-dom";
+import store from "../../Redux/store";
+import { LogOut } from "../../common/auth";
+import Api from "../../common/Api";
 
 export default function TopNavBar({ open, handleDrawerOpen }) {
   const classes = MainDashStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+  const state = store.getState().currentUser;
+  const user = state.user_data;
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -44,6 +50,13 @@ export default function TopNavBar({ open, handleDrawerOpen }) {
 
   const menuId = "primary-search-account-menu";
 
+  const HandleLogOut = () => {
+    Api()
+      .post("/public/auth/logout")
+      .then((res) => LogOut())
+      .catch((e) => LogOut());
+  };
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -54,9 +67,26 @@ export default function TopNavBar({ open, handleDrawerOpen }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={LogOut}>Log out</MenuItem>
+      {user && user._id ? (
+        <>
+          <MenuItem onClick={handleMenuClose}>
+            {user.firstName + " " + user.lastName}
+          </MenuItem>
+
+          <MenuItem onClick={() => navigate("/public/")}>Home</MenuItem>
+
+          <MenuItem onClick={HandleLogOut}>Logout</MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem onClick={() => navigate("/public/auth/login")}>
+            Login
+          </MenuItem>
+          <MenuItem onClick={() => navigate("/public/auth/register")}>
+            Register
+          </MenuItem>
+        </>
+      )}
     </Menu>
   );
 
