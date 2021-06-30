@@ -6,7 +6,7 @@ export const NavItems1 = () => {
     {
       id: 1,
       name: "Reports",
-      to: "/app/reports",
+      to: "",
       iconFront: <InboxIcon />,
       hasChildren: true,
       isChild: false,
@@ -14,7 +14,7 @@ export const NavItems1 = () => {
         {
           id: 2,
           name: "Dashboard",
-          to: "/app/reports/dashboard",
+          to: "",
           iconFront: <InboxIcon />,
           hasChildren: false,
           isChild: true,
@@ -22,7 +22,7 @@ export const NavItems1 = () => {
         {
           id: 3,
           name: "Statistics",
-          to: "/app/reports/statistics",
+          to: "",
           iconFront: <InboxIcon />,
           hasChildren: false,
           isChild: true,
@@ -30,7 +30,7 @@ export const NavItems1 = () => {
         {
           id: 4,
           name: "Statistics-data",
-          to: "/app/reports/statistics-data",
+          to: "",
           iconFront: <InboxIcon />,
           hasChildren: false,
           isChild: true,
@@ -116,7 +116,7 @@ export const NavItems1 = () => {
     {
       id: 14,
       name: "Profile",
-      to: "/app/profile",
+      to: "/protected/profile",
       iconFront: <AccountBoxIcon />,
       hasChildren: false,
       isChild: false,
@@ -128,7 +128,7 @@ export const NavItems2 = () => {
     {
       id: 1,
       name: "Conferences",
-      to: "/data/reports",
+      to: "",
       iconFront: <InboxIcon />,
       hasChildren: false,
       isChild: false,
@@ -136,15 +136,15 @@ export const NavItems2 = () => {
     {
       id: 2,
       name: "Workshops",
-      to: "/data/reports/dashboard",
+      to: "",
       iconFront: <InboxIcon />,
       hasChildren: false,
       isChild: true,
     },
     {
       id: 3,
-      name: "Innovations",
-      to: "/data/reports/statistics",
+      name: "Posts",
+      to: "/protected/posts",
       iconFront: <InboxIcon />,
       hasChildren: false,
       isChild: true,
@@ -152,7 +152,7 @@ export const NavItems2 = () => {
     {
       id: 4,
       name: "Researches",
-      to: "/data/reports/statistics-data",
+      to: "",
       iconFront: <InboxIcon />,
       hasChildren: false,
       isChild: true,

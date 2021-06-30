@@ -15,10 +15,10 @@ const MainDashStyles = makeStyles((theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      zIndex: theme.zIndex.drawer + 1,
       height: "68px",
       display: "flex",
       justifyContent: "center",
+      zIndex: 1201,
     },
     appBarShift: {
       marginLeft: drawerWidth,
@@ -114,9 +114,9 @@ const MainDashStyles = makeStyles((theme) =>
     search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade("#ffffff", 0.15),
+      backgroundColor: fade("#000000", 0.15),
       "&:hover": {
-        backgroundColor: fade("#ffffff", 0.25),
+        backgroundColor: fade("#000000", 0.25),
       },
       marginLeft: 0,
       marginRight: 0,

@@ -10,7 +10,6 @@ import Api from "../../../../common/Api";
 import Error from "../../../../components/alerts/Error";
 import ButtonProgress from "../../../../components/common/ButtonProgress/ButtonProgress";
 import swal from "sweetalert";
-import Copyright from "../../../../components/Copyright";
 import HelperTexts from "../../../../components/HelperTexts";
 
 const useStyles = makeStyles((theme) => ({
@@ -112,9 +111,6 @@ export default function Index() {
               name="Send password reset email"
               loading={loading}
             />
-          </Box>
-          <Box mt={5}>
-            <Copyright />
           </Box>
         </form>
       </div>

@@ -6,7 +6,7 @@ const {
   ARegistrationRules,
   AdminProfileUpdateRules,
 } = require("../Validation/AdminRules ");
-const { SendAppNotification } = require("../Dao/NotificationDau");
+const { NotifyProfileRegistered } = require("./NotificationEndpoint");
 
 /* Validations */
 const ValidateAdminRegistration = async (req) => {
@@ -31,7 +31,7 @@ exports.AdminRegistration = async (req, res, next) => {
 
     // register admin
     const user = await AdminDao.createNewAdmin(req.body);
-    SendAppNotification();
+    NotifyProfileRegistered(user);
     sendSuccess(res, { user, token: user.getSignedJwtToken() });
   } catch (error) {
     next(error);

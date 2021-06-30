@@ -1,4 +1,4 @@
-export const ProtectedRoles = ["ADMIN", "REVIEWER", "Editor"];
+export const ProtectedRoles = ["ADMIN", "REVIEWER", "EDITOR"];
 export const AdminRoles = ["ADMIN"];
-export const EditorRoles = ["ADMIN", "Editor"];
+export const EditorRoles = ["ADMIN", "EDITOR"];
 export const ReviewerRoles = ["ADMIN", "REVIEWER"];

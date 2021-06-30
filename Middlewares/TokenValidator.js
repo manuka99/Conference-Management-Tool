@@ -29,6 +29,7 @@ exports.TokenValidator = async (req, res, next) => {
 
     // user is authenicated, used by other middlewares to verify role etc
     req.user = user;
+    req.user_jwt = token;
 
     // save the user's token with user agent
     JWTTokenDao.saveTokenWithUseragent(

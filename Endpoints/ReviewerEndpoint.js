@@ -6,6 +6,7 @@ const {
   ReviewerProfileUpdateRules,
 } = require("../Validation/ReviewerRules ");
 const { ValidateRequest } = require("../Middlewares/ValidateRequest");
+const { NotifyProfileRegistered } = require("./NotificationEndpoint");
 
 /* Validations */
 const ValidateReviewerRegistration = async (req) => {
@@ -30,6 +31,10 @@ exports.ReviewerRegistration = async (req, res, next) => {
 
     // register reviewer
     const user = await ReviewerDao.createNewReviewer(req.body);
+
+    // send notification
+    NotifyProfileRegistered(user);
+
     sendSuccess(res, { user, token: user.getSignedJwtToken() });
   } catch (error) {
     next(error);

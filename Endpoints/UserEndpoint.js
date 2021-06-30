@@ -167,18 +167,26 @@ exports.ResetPassword = (req, res, next) => {
 };
 
 exports.UpdatePassword = async (req, res, next) => {
-  const { password, logOutAllDevices } = req.body;
+  const { current_password, password, logOutAllDevices } = req.body;
   const { user } = req;
 
-  // update password
-  UserDao.updatePassword(user._id, password)
-    .then((updatedUser) => {
-      // revoke other logged in tokens if user requested
-      if (logOutAllDevices) JWTTokenDao.invalidateTokensOfUser(user._id);
-      return sendSuccess(res, {
-        msg: "Password was updated successfully!",
-        token: updatedUser.getSignedJwtToken(),
-      });
+  UserDao.findUserByEmailWithPassword(user.email)
+    .then((user) => {
+      if (!user) throw new ValidationError("Invalid user");
+      // match password
+      if (!user.matchPasswords(current_password))
+        throw new ValidationError("Current password is Incorrect");
+      // update password
+      UserDao.updatePassword(user._id, password)
+        .then((updatedUser) => {
+          // revoke other logged in tokens if user requested
+          if (logOutAllDevices) JWTTokenDao.invalidateTokensOfUser(user._id);
+          return sendSuccess(res, {
+            msg: "Password was updated successfully!",
+            token: updatedUser.getSignedJwtToken(),
+          });
+        })
+        .catch(next);
     })
     .catch(next);
 };

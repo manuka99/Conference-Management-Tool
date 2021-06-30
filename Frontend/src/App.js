@@ -6,7 +6,8 @@ import { AllRoutes } from "./Routes";
 import Loading from "./Pages/Loading";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Payhere, AccountCategory } from "payhere-js-sdk";
-import { PAYHERE_MERCHANT } from "./common/AppConstants";
+import { PAYHERE_MERCHANT } from "./Config";
+import dotenv from "dotenv";
 
 function App(props) {
   const location = useLocation();
@@ -15,6 +16,9 @@ function App(props) {
   const [firstLaunch, setFirstLaunch] = useState(true);
 
   useEffect(() => {
+    // configurations
+    dotenv.config();
+
     /* PAYHERE SANDBOX */
     Payhere.init(PAYHERE_MERCHANT, AccountCategory.SANDBOX);
 

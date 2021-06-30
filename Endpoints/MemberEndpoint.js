@@ -13,6 +13,11 @@ const {
   NotifyProfileRegistered,
   NotifyProfileApprovals,
 } = require("./NotificationEndpoint");
+const {
+  NewRegistrationEmail,
+  ProfileApprovedEmail,
+  ProfileRejectedEmail,
+} = require("../Services/MailServiceImpl");
 
 /* Validations */
 const ValidateMemberRegistration = async (req) => {
@@ -60,7 +65,10 @@ exports.MemberRegistration = async (req, res, next) => {
       // update user
       user = await MemberDao.updateMember(user._id, { file: upload._id });
     }
+    // send app notification
     NotifyProfileRegistered(user);
+    // send email
+    NewRegistrationEmail(user);
     sendSuccess(res, { user, token: user.getSignedJwtToken() });
   } catch (error) {
     next(error);
@@ -117,7 +125,10 @@ exports.MemberApproval = (req, res, next) => {
     approvedBy: req.user._id,
   })
     .then((user) => {
+      // app notification
       NotifyProfileApprovals(req.user, user, isApproved);
+      // email
+      isApproved ? ProfileApprovedEmail(user) : ProfileRejectedEmail(user);
       sendSuccess(res, { user });
     })
     .catch(next);

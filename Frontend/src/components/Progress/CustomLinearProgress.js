@@ -4,10 +4,10 @@ import { LinearProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   colorPrimary: {
-    background: theme.palette.neutral.light,
+    background: theme.palette.primary.light,
   },
   barColorPrimary: {
-    background: theme.palette.neutral.lighter,
+    background: theme.palette.primary.dark,
   },
 }));
 

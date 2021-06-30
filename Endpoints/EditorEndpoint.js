@@ -6,6 +6,7 @@ const {
   ERegistrationRules,
   EditorProfileUpdateRules,
 } = require("../Validation/EditorRules ");
+const { NotifyProfileRegistered } = require("./NotificationEndpoint");
 
 /* Validations */
 const ValidateEditorRegistration = async (req) => {
@@ -30,6 +31,10 @@ exports.EditorRegistration = async (req, res, next) => {
 
     // register editor
     const user = await EditorDao.createNewEditor(req.body);
+
+    // notification
+    NotifyProfileRegistered(user);
+
     sendSuccess(res, { user, token: user.getSignedJwtToken() });
   } catch (error) {
     next(error);

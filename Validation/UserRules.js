@@ -45,15 +45,18 @@ exports.UserProfileUpdateRules = (req) => {
   return rules;
 };
 
+exports.RecoverPasswordRules = [Validation.email()];
+
+exports.ResetPasswordRules = [
+  Validation.boolean("logOutAllDevices"),
+  Validation.password(),
+  Validation.confirm_password(),
+  Validation.text("token"),
+];
+
 exports.UpdatePasswordRules = [
   Validation.boolean("logOutAllDevices"),
   Validation.password(),
   Validation.confirm_password(),
-];
-
-exports.RecoverPasswordRules = [Validation.email()];
-
-exports.ResetPasswordRules = [
-  ...this.UpdatePasswordRules,
-  Validation.text("token"),
+  Validation.text("current_password", 8, 40),
 ];

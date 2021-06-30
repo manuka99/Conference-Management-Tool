@@ -17,6 +17,6 @@ exports.deleteMember = async (_id) => {
 };
 
 exports.findMembersBySubRole = async (sub_role) => {
-  var members = await Member.find({ sub_role });
+  var members = await Member.find({ sub_role }).sort({ updatedAt: "desc" });
   return members;
 };

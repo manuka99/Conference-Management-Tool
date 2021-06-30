@@ -12,6 +12,8 @@ exports.PostsRoutes = (app) => {
     ValidateRequest,
     PostEndpoint.NewPost
   );
+  /* EDITOR */
+  app.get("/api/editor/posts", PostEndpoint.GetAllPostsPanel);
   /* ADMIN */
   app.patch(
     "/api/admin/posts/approve/:id",
@@ -19,4 +21,5 @@ exports.PostsRoutes = (app) => {
     ValidateRequest,
     PostEndpoint.PostApproval
   );
+  app.delete("/api/admin/posts/:id", PostEndpoint.DeletePost);
 };

@@ -29,7 +29,7 @@ exports.Validation = {
       .not()
       .isEmpty()
       .withMessage("Password is required")
-      .isLength({ min: 6, max: 40 })
+      .isLength({ min: 8, max: 40 })
       .withMessage(
         "Password must be at least 6 chars long & not more than 40 chars long!"
       )

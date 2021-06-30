@@ -22,7 +22,7 @@ export default function Index({ handleForm, errors, registerInfo }) {
     <>
       <Typography variant="h6">Payment details *</Typography>
       <Typography variant="caption" gutterBottom>
-        (Payment is required = LKR 500.00)
+        (Payment is required = LKR 800.00)
       </Typography>
 
       <CardActionArea style={{ marginTop: "20px" }}>
@@ -42,7 +42,7 @@ export default function Index({ handleForm, errors, registerInfo }) {
           <b>How much do we charge?</b>
         </Typography>
         <Typography variant="body2" color="textSecondary" gutterBottom>
-          We charge only <b>LKR 500.00 </b>for our services.
+          We charge only <b>LKR 800.00 </b>for our services.
         </Typography>
         <br />
         <Typography gutterBottom variant="body2">

@@ -13,11 +13,11 @@ import Container from "@material-ui/core/Container";
 
 const tiers = [
   {
-    title: "Free",
+    title: "Researcher/Presenter",
     price: "0",
     description: [
-      "10 users included",
-      "2 GB of storage",
+      "New oppotunities",
+      "Research submittion",
       "Help center access",
       "Email support",
     ],
@@ -25,12 +25,12 @@ const tiers = [
     buttonVariant: "outlined",
   },
   {
-    title: "Pro",
+    title: "Innovator",
     subheader: "Most popular",
-    price: "15",
+    price: "800",
     description: [
-      "20 users included",
-      "10 GB of storage",
+      "Innovation submission",
+      "Support your idea",
       "Help center access",
       "Priority email support",
     ],
@@ -38,11 +38,11 @@ const tiers = [
     buttonVariant: "contained",
   },
   {
-    title: "Enterprise",
-    price: "30",
+    title: "Attendee",
+    price: "500",
     description: [
-      "50 users included",
-      "30 GB of storage",
+      "Meet new professionals",
+      "Certificate for participation",
       "Help center access",
       "Phone & email support",
     ],
@@ -52,6 +52,9 @@ const tiers = [
 ];
 
 const useStyles = makeStyles((theme) => ({
+  main: {
+    padding: theme.spacing(8, 6),
+  },
   "@global": {
     ul: {
       margin: 0,
@@ -72,8 +75,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 1.5),
   },
   heroContent: {
-    padding: theme.spacing(8, 0, 6),
     color: "white",
+    padding: theme.spacing(0, 8, 6),
   },
   cardHeader: {
     backgroundColor:
@@ -93,7 +96,7 @@ export default function Pricing() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <div className={`bgcl ${classes.main}`}>
       <CssBaseline />
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
@@ -101,9 +104,9 @@ export default function Pricing() {
           <strong> Pricing</strong>
         </Typography>
         <Typography variant="h5" align="center" color="white" component="p">
-          Quickly build an effective pricing table for your potential customers
-          with this layout. It&apos;s built with default Material-UI components
-          with little customization.
+          Pricing is the process whereby a business sets the price at which it
+          will sell its products and services, and may be part of the business's
+          marketing plan.
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -163,6 +166,6 @@ export default function Pricing() {
           ))}
         </Grid>
       </Container>
-    </React.Fragment>
+    </div>
   );
 }

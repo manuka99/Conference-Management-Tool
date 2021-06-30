@@ -7,6 +7,7 @@ const UploadEndpoint = require("../Endpoints/UploadEndpoint");
 const { FileAccess } = require("../Middlewares/FileAccess");
 const { TokenValidator } = require("../Middlewares/TokenValidator");
 const { PostsRoutes } = require("./PostsRoutes");
+const { NotificationRoutes } = require("./Panel/NotificationRoutes");
 
 exports.AppRoutes = (app) => {
   // Authentication Routes
@@ -23,6 +24,9 @@ exports.AppRoutes = (app) => {
 
   /* Post Routes */
   PostsRoutes(app);
+
+  /* Notification Routes */
+  NotificationRoutes(app);
 
   app.get("/api/public/files/:name", UploadEndpoint.GetFile);
 

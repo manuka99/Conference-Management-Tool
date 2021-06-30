@@ -12,12 +12,11 @@ const useStyles = makeStyles((theme) => ({
     alignContent: "center",
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
-    marginBottom: theme.spacing(4),
     backgroundImage: "url(https://source.unsplash.com/random)",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    height: "320px",
+    height: "420px",
   },
   overlay: {
     position: "absolute",
@@ -58,12 +57,16 @@ export default function Hero() {
         <Grid item md={6}>
           <div className={classes.mainFeaturedPostContent}>
             <Typography variant="h4" color="inherit" gutterBottom>
-              <strong>Title of a longer featured blog post</strong>
+              <strong>JULY 2021 TECH CONFERENCE</strong>
             </Typography>
             <Typography variant="h6" color="inherit" paragraph>
-              Multiple lines of text that form the lede, informing new readers
-              quickly and efficiently about what's most interesting in this
-              post's contents.
+              For more than 40 years, CMG’s international conference has been
+              the source for education and peer-to-peer exchange for all things
+              enterprise IT and infrastructure. It is the only conference of its
+              kind where attendees can obtain real-world knowledge and training
+              that is not vendor-run. IMPACT features sessions on the full scope
+              of digital transformation technologies including Artificial
+              Intelligence and Machine Learning.
             </Typography>
             <Typography variant="subtitle1" color="primary">
               Continue reading...

@@ -1,4 +1,4 @@
-import { APP_USER_TOKEN } from "./AppConstants";
+import { APP_USER_TOKEN } from "../Config";
 import store from "../Redux/store";
 import {
   fetch_user_data_success,

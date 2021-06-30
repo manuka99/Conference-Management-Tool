@@ -8,7 +8,7 @@ function Index() {
   return (
     <div className="Home">
       <Container maxWidth="lg">
-        <div className="bgcl">
+        <div className="bgPublic">
           <AppBar />
           <Outlet />
           <Copyright />

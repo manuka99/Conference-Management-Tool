@@ -36,6 +36,13 @@ background: #757F9A;
 
 }
 
+.bgPublic{
+    width: auto;
+    height: auto;
+    min-height: 100%;
+background: #E8E8E8;
+}
+
 .bgcl{
     width: auto;
     height: auto;
@@ -54,4 +61,10 @@ background: linear-gradient(to right, #3a7bd5, #00d2ff);
         height: auto;
         min-height: 100%;
         background-color: "#292E49";
+}
+
+ul {
+    display: block;
+    list-style-type: none;
+    padding-inline-start: 0px;
 }

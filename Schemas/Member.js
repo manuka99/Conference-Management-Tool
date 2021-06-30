@@ -35,7 +35,7 @@ const MemberSchema = new Schema({
   },
   approvalReason: {
     type: String,
-    default: false,
+    required: false,
   },
   approvedBy: {
     type: Types.ObjectId,

@@ -102,24 +102,29 @@ export default function ViewUser() {
           />
         ) : (
           <>
-            <ButtonProgress
-              onClick={approvalSubmit}
-              variant="contained"
-              color={userInfo.isApproved ? "secondary" : "primary"}
-              size="small"
-              loading={loading}
-              name={userInfo.isApproved ? "Reject user" : "Accept user"}
-            />
-            {userInfo.approvalReason && (
-              <Typography
-                variant="body2"
-                style={{ marginTop: "10px" }}
-                color="textSecondary"
-                gutterBottom
-              >
-                <b>Approval reason </b>: {userInfo.approvalReason}
-              </Typography>
+            {userInfo.role === "MEMBER" && (
+              <>
+                <ButtonProgress
+                  onClick={approvalSubmit}
+                  variant="contained"
+                  color={userInfo.isApproved ? "secondary" : "primary"}
+                  size="small"
+                  loading={loading}
+                  name={userInfo.isApproved ? "Reject user" : "Accept user"}
+                />
+                {userInfo.approvalReason && (
+                  <Typography
+                    variant="body2"
+                    style={{ marginTop: "10px" }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    <b>Approval reason </b>: {userInfo.approvalReason}
+                  </Typography>
+                )}
+              </>
             )}
+
             {errors.msg && <Error message={errors.msg} />}
 
             <Grid container spacing={4}>
@@ -144,6 +149,7 @@ export default function ViewUser() {
                   <b>Email</b>: {userInfo.email} <br />
                   <b>Phone</b>: {userInfo.phone} <br />
                   <b>User Role</b>: {userInfo.role} <br />
+                  <b>Payment Info</b>: {userInfo.payment} <br />
                 </div>
               </Grid>
               <Grid item xs={3}>

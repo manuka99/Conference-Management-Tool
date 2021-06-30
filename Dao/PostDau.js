@@ -11,7 +11,14 @@ exports.updatePost = async (id, data) => {
 };
 
 exports.findAll = async () => {
-  const posts = await Post.find();
+  const posts = await Post.find({ isApproved: true }).sort({
+    updatedAt: "desc",
+  });
+  return posts;
+};
+
+exports.findAllAdmin = async () => {
+  const posts = await Post.find().sort({ updatedAt: "desc" }).populate("user");
   return posts;
 };
 

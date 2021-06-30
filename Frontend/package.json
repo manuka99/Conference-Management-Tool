@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "custom-error": "^0.2.1",
+    "dotenv": "^10.0.0",
     "history": "^5.0.0",
     "js-file-download": "^0.4.12",
     "material-ui-dropzone": "^3.5.0",

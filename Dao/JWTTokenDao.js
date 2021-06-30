@@ -55,7 +55,7 @@ exports.saveTokenWithUseragent = async (token, user, useragent, ip) => {
 };
 
 exports.findAllByUserID = async (user_id) => {
-  const tokens = await JWTToken.find({ user_id });
+  const tokens = await JWTToken.find({ user_id }).sort({ updatedAt: "desc" });
   return tokens;
 };
 

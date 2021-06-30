@@ -267,6 +267,11 @@ export default function PrimarySearchAppBar() {
           </div>
         </Toolbar>
       </AppBar>
+      {user && user.role === "MEMBER" && !user.isApproved && (
+        <Button variant="text" color="secondary" size="small">
+          <b> This account is not approved - {user.approvalReason}</b>
+        </Button>
+      )}
       {renderMobileMenu}
       {renderMenu}
     </div>
