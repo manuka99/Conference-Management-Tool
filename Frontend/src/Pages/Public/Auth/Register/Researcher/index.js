@@ -6,8 +6,7 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import UserForm from "../User";
-import InnovatorForm from "./InnovatorForm";
-import InnovatorPayment from "./InnovatorPayment";
+import ResearcherForm from "./ResearcherForm";
 import Api from "../../../../../common/Api";
 import { authenticate } from "../../../../../common/auth";
 import Success from "./Success";
@@ -28,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     padding: theme.spacing(3, 0, 5),
+    width: "60%",
   },
   buttons: {
     display: "flex",
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Profile", "Additional", "Payment"];
+const steps = ["Profile", "Researcher details"];
 
 export default function Index() {
   const classes = useStyles();
@@ -48,7 +48,7 @@ export default function Index() {
 
   const [registerInfo, setRegisterInfo] = useState({
     role: "MEMBER",
-    sub_role: "INNOVATOR",
+    sub_role: "RESEARCHER",
   });
 
   const [file, setFile] = useState({});
@@ -118,17 +118,9 @@ export default function Index() {
         );
       case 1:
         return (
-          <InnovatorForm
+          <ResearcherForm
             file={file}
             handleUpload={handleUpload}
-            errors={errors}
-          />
-        );
-      case 2:
-        return (
-          <InnovatorPayment
-            registerInfo={registerInfo}
-            handleForm={handleForm}
             errors={errors}
           />
         );
@@ -151,7 +143,7 @@ export default function Index() {
             Back to registration
           </Button>
           <Typography variant="h5" align="center">
-            <b>Register as an Innovator</b>
+            <b>Register as an Researcher</b>
           </Typography>
           {errors.msg && <Error message={errors.msg} />}
           <Stepper activeStep={activeStep} className={classes.stepper}>

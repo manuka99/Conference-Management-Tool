@@ -6,13 +6,11 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import UserForm from "../User";
-import InnovatorForm from "./InnovatorForm";
-import InnovatorPayment from "./InnovatorPayment";
+import AttendeePayment from "./AttendeePayment";
 import Api from "../../../../../common/Api";
 import { authenticate } from "../../../../../common/auth";
 import Success from "./Success";
 import Error from "../../../../../components/alerts/Error";
-import { getConvertedFormData } from "../../../../../common/util";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
@@ -28,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     padding: theme.spacing(3, 0, 5),
+    width: "60%",
   },
   buttons: {
     display: "flex",
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Profile", "Additional", "Payment"];
+const steps = ["Profile", "Payment"];
 
 export default function Index() {
   const classes = useStyles();
@@ -48,10 +47,8 @@ export default function Index() {
 
   const [registerInfo, setRegisterInfo] = useState({
     role: "MEMBER",
-    sub_role: "INNOVATOR",
+    sub_role: "ATTENDEE",
   });
-
-  const [file, setFile] = useState({});
 
   const [errors, setErrors] = useState({});
 
@@ -63,22 +60,10 @@ export default function Index() {
     delete errors[event.target.name];
   };
 
-  const handleUpload = (files) => {
-    console.log(files);
-    if (files.length > 0) setFile(files[0]);
-    else setFile({});
-  };
-
   const registerSubmit = () => {
     setErrors({});
-    var registerFormData = getConvertedFormData(registerInfo);
-    registerFormData.append("file", file);
     Api()
-      .post("/public/register", registerFormData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post("/public/register", registerInfo)
       .then((res) => {
         const { user, token } = res.data.data;
         setTimeout(() => {
@@ -118,15 +103,7 @@ export default function Index() {
         );
       case 1:
         return (
-          <InnovatorForm
-            file={file}
-            handleUpload={handleUpload}
-            errors={errors}
-          />
-        );
-      case 2:
-        return (
-          <InnovatorPayment
+          <AttendeePayment
             registerInfo={registerInfo}
             handleForm={handleForm}
             errors={errors}
@@ -151,7 +128,7 @@ export default function Index() {
             Back to registration
           </Button>
           <Typography variant="h5" align="center">
-            <b>Register as an Innovator</b>
+            <b>Register as an Attendee</b>
           </Typography>
           {errors.msg && <Error message={errors.msg} />}
           <Stepper activeStep={activeStep} className={classes.stepper}>

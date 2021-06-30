@@ -15,6 +15,33 @@ const Login = loadable(() => import("../Pages/Public/Auth/Login"), {
 const Register = loadable(() => import("../Pages/Public/Auth/Register"), {
   fallback: <ProgressBar />,
 });
+const Innovator = loadable(
+  () => import("../Pages/Public/Auth/Register/Innovator"),
+  {
+    fallback: <ProgressBar />,
+  }
+);
+
+const Researcher = loadable(
+  () => import("../Pages/Public/Auth/Register/Researcher"),
+  {
+    fallback: <ProgressBar />,
+  }
+);
+
+const Presenter = loadable(
+  () => import("../Pages/Public/Auth/Register/Presenter"),
+  {
+    fallback: <ProgressBar />,
+  }
+);
+
+const Attendee = loadable(
+  () => import("../Pages/Public/Auth/Register/Attendee"),
+  {
+    fallback: <ProgressBar />,
+  }
+);
 
 const RecoverPassword = loadable(
   () => import("../Pages/Public/Auth/RecoverPassword"),
@@ -35,7 +62,13 @@ function AuthRoutes() {
     <Route path="/auth" element={<Auth />}>
       <GuestRoute path="/" element={<Navigate to="/public/auth/login" />} />
       <GuestRoute path="/login" element={<Login />} />
-      <GuestRoute path="/register" element={<Register />} />
+      <GuestRoute path="/register">
+        <GuestRoute path="/" element={<Register />} />
+        <GuestRoute path="/innovator" element={<Innovator />} />
+        <GuestRoute path="/researcher" element={<Researcher />} />
+        <GuestRoute path="/presenter" element={<Presenter />} />
+        <GuestRoute path="/attendee" element={<Attendee />} />
+      </GuestRoute>
       <GuestRoute path="/recover-password" element={<RecoverPassword />} />
       <GuestRoute
         path="/reset-password/:token/:email/:username"

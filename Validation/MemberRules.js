@@ -20,11 +20,19 @@ exports.MRegistrationRules = (data) => {
 
   if (sub_role) {
     switch (sub_role) {
+      case MemberEnum.RESEARCHER.value:
+        validations.push(Validation.file());
+        break;
+      case MemberEnum.PRESENTER.value:
+        validations.push(Validation.file());
+        break;
+      case MemberEnum.ATTENDEE.value:
+        validations.push(Validation.text("payment"));
+        break;
       case MemberEnum.INNOVATOR.value:
         validations.push(Validation.file());
         validations.push(Validation.text("payment"));
         break;
-
       default:
         break;
     }
