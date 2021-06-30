@@ -9,6 +9,10 @@ const { ValidateRequest } = require("../Middlewares/ValidateRequest");
 const UploadDau = require("../Dao/UploadDau");
 const { RoleAuth } = require("../Middlewares/RoleAuth");
 const { UserEnum } = require("../Models/UserModel");
+const {
+  NotifyProfileRegistered,
+  NotifyProfileApprovals,
+} = require("./NotificationEndpoint");
 
 /* Validations */
 const ValidateMemberRegistration = async (req) => {
@@ -56,7 +60,7 @@ exports.MemberRegistration = async (req, res, next) => {
       // update user
       user = await MemberDao.updateMember(user._id, { file: upload._id });
     }
-
+    NotifyProfileRegistered(user);
     sendSuccess(res, { user, token: user.getSignedJwtToken() });
   } catch (error) {
     next(error);
@@ -112,7 +116,10 @@ exports.MemberApproval = (req, res, next) => {
     approvalReason,
     approvedBy: req.user._id,
   })
-    .then((user) => sendSuccess(res, { user }))
+    .then((user) => {
+      NotifyProfileApprovals(req.user, user, isApproved);
+      sendSuccess(res, { user });
+    })
     .catch(next);
 };
 

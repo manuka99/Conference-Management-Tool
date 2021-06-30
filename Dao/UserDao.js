@@ -42,7 +42,7 @@ exports.findPopulatedUserById = async (id) => {
   return user;
 };
 
-exports.findUsersByRole = async (role) => {
-  var users = await User.find({ role });
+exports.findUsersByRole = async (...roles) => {
+  var users = await User.find({ role: { $in: roles } });
   return users;
 };

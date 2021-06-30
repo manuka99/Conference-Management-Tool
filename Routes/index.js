@@ -6,6 +6,7 @@ const { SessionRoutes } = require("./SessionRoutes");
 const UploadEndpoint = require("../Endpoints/UploadEndpoint");
 const { FileAccess } = require("../Middlewares/FileAccess");
 const { TokenValidator } = require("../Middlewares/TokenValidator");
+const { PostsRoutes } = require("./PostsRoutes");
 
 exports.AppRoutes = (app) => {
   // Authentication Routes
@@ -19,6 +20,9 @@ exports.AppRoutes = (app) => {
 
   /* Panel Routes */
   PanelUserRoutes(app);
+
+  /* Post Routes */
+  PostsRoutes(app);
 
   app.get("/api/public/files/:name", UploadEndpoint.GetFile);
 

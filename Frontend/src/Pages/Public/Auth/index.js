@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 0),
   },
   paper: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(8),
     marginBottom: theme.spacing(4),
     padding: theme.spacing(4, 0, 8),
   },
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 function Index() {
   const classes = useStyles();
   return (
-    <div className="App Auth">
+    <div>
       <Container
         component="main"
         style={{ maxWidth: "800px" }}
