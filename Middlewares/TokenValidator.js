@@ -17,6 +17,9 @@ exports.TokenValidator = async (req, res, next) => {
     // fetch user by decoded rtoken user id
     const user = await UserDao.findUserById(decodedToken.data.user_id);
 
+    // invalid user
+    if (!user) throw new Error("Invalid user!");
+
     // check if token was revoked, if so do not set auth user
     const jwtToken = await JWTTokenDao.findByToken(token);
 
